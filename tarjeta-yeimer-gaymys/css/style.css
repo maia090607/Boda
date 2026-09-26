@@ -1,0 +1,227 @@
+:root {
+  --crema: #FBF7EF;
+  --marfil: #FFFDF8;
+  --beige: #E8DFC9;
+  --arena: #D8C6A3;
+  --dorado: #B08D4F;
+  --dorado-claro: #C9A961;
+  --tinta: #3A2E22;
+  --gris: #5B564D;
+  --gris-claro: #7A7468;
+  --blush: #F6E4D8;
+  --blush-linea: #F1D2BC;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--crema);
+  color: var(--gris);
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+
+.titulo-dorado {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  color: var(--dorado-claro);
+  text-align: center;
+  font-size: clamp(1.7rem, 6vw, 2.3rem);
+  margin: 0 0 0.3em;
+}
+.titulo-dorado--grande { font-size: clamp(2.1rem, 8vw, 3rem); line-height: 1.15; }
+.subtitulo {
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--gris);
+  max-width: 30ch;
+  margin: 0 auto 1.6em;
+}
+.subtitulo-h3 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  color: #2E2A24;
+  text-align: center;
+  font-size: 1.4rem;
+  margin: 0 0 1.2em;
+}
+.divisor { width: 140px; height: 1px; background: rgba(58,46,34,0.25); margin: 2.2rem auto; }
+
+.s { position: relative; padding: 5rem 1.6rem; overflow: hidden; }
+
+/* reveal-on-scroll */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.mostrar { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ============ 1. PORTADA ============ */
+.s--portada {
+  min-height: 100svh;
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+  padding-top: 4.2rem;
+  text-align: center;
+  background: linear-gradient(180deg, #241a12, #2c1d16);
+}
+.s--portada__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.92; }
+.s--portada.sin-foto .s--portada__bg { display: none; }
+.s--portada.sin-foto { background: radial-gradient(120% 90% at 50% 20%, #4a3826, #241a12 75%); }
+.s--portada__velo {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(180deg, rgba(20,14,8,0.65) 0%, rgba(20,14,8,0.05) 32%, rgba(20,14,8,0.05) 60%, rgba(20,14,8,0.75) 100%);
+}
+.s--portada__contenido { position: relative; z-index: 2; color: #FFFDF8; }
+.s--portada h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: clamp(2.6rem, 10vw, 4rem);
+  letter-spacing: 0.02em;
+  margin: 0;
+  text-shadow: 0 2px 18px rgba(0,0,0,0.35);
+}
+.s--portada h1 span { color: var(--dorado-claro); font-style: italic; padding: 0 0.15em; }
+.s--portada__fecha {
+  margin: 2.6rem 0 2.4rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.1rem, 4vw, 1.5rem);
+  letter-spacing: 0.18em;
+}
+.contador { position: relative; z-index: 2; display: flex; gap: clamp(0.5rem, 3vw, 1rem); justify-content: center; }
+.contador__item {
+  background: linear-gradient(160deg, var(--dorado-claro), var(--dorado));
+  color: #2c1d16;
+  border-radius: 8px;
+  min-width: 62px;
+  padding: 0.7rem 0.4rem 0.5rem;
+}
+.contador__item span { display: block; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: clamp(1.3rem, 5vw, 1.7rem); line-height: 1; }
+.contador__item small { display: block; margin-top: 0.35em; font-size: 0.62rem; letter-spacing: 0.05em; }
+
+.scroll-cue {
+  position: absolute; left: 50%; bottom: 1.8rem; transform: translateX(-50%);
+  z-index: 2; display: flex; flex-direction: column; align-items: center; color: #FFFDF8;
+}
+.chevron { width: 22px; height: 22px; margin-bottom: -10px; animation: subir 1.6s infinite; opacity: 0.85; }
+.chevron--2 { animation-delay: 0.25s; }
+.scroll-cue span { margin-top: 0.6rem; font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.14em; }
+@keyframes subir {
+  0% { transform: translateY(6px); opacity: 0; }
+  40% { opacity: 0.9; }
+  100% { transform: translateY(-6px); opacity: 0; }
+}
+
+/* ============ 2. NOS CASAMOS ============ */
+.s--nos-casamos { background: var(--marfil); text-align: center; padding-bottom: 0; }
+.script-dorado {
+  font-family: 'Sacramento', cursive;
+  color: var(--dorado);
+  font-size: clamp(2.2rem, 9vw, 3rem);
+  margin: 0 0 0.6em;
+}
+.script-texto {
+  font-family: 'Sacramento', cursive;
+  color: #4a4438;
+  font-size: clamp(1.2rem, 4.6vw, 1.5rem);
+  line-height: 1.5;
+  max-width: 34ch;
+  margin: 0 auto 3rem;
+}
+.foto-rota {
+  width: 100%;
+  aspect-ratio: 4/5;
+  background: linear-gradient(160deg, var(--beige), var(--arena));
+  clip-path: polygon(0% 3%, 4% 0%, 9% 2.5%, 14% 0%, 19% 2.2%, 24% 0%, 29% 2.6%, 34% 0%, 39% 2%, 44% 0%, 49% 2.4%, 54% 0%, 59% 2%, 64% 0%, 69% 2.6%, 74% 0%, 79% 2%, 84% 0%, 89% 2.4%, 94% 0%, 100% 3%, 100% 97%, 95% 100%, 90% 97.5%, 85% 100%, 80% 97.6%, 75% 100%, 70% 97.4%, 65% 100%, 60% 97.8%, 55% 100%, 50% 97.5%, 45% 100%, 40% 97.6%, 35% 100%, 30% 97.4%, 25% 100%, 20% 97.8%, 15% 100%, 10% 97.5%, 5% 100%, 0% 97%);
+}
+.foto-rota img { width: 100%; height: 100%; object-fit: cover; }
+.foto-rota.sin-foto img { opacity: 0; }
+
+/* ============ 3. ITINERARIO ============ */
+.s--itinerario { background: var(--marfil); }
+.linea-tiempo { max-width: 420px; margin: 0 auto; position: relative; }
+.linea-tiempo::before {
+  content: ""; position: absolute; left: 24px; top: 6px; bottom: 6px; width: 1px;
+  background: rgba(58,46,34,0.3);
+}
+.linea-tiempo__evento {
+  display: grid; grid-template-columns: 48px 24px 1fr; align-items: center;
+  column-gap: 0.6rem; padding: 1.15rem 0;
+}
+.icono { width: 40px; height: 40px; color: var(--tinta); }
+.linea-tiempo__punto { width: 9px; height: 9px; border-radius: 50%; background: var(--dorado-claro); margin: 0 auto; }
+.linea-tiempo__texto strong { display: block; font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 1rem; color: #2E2A24; }
+.linea-tiempo__texto span { display: block; font-size: 0.85rem; color: var(--gris-claro); margin-top: 0.15em; }
+
+/* ============ 4. NUESTRO AMOR ============ */
+.s--nuestro-amor { padding: 0; background: linear-gradient(180deg, var(--beige) 0%, var(--crema) 42%); }
+.s--nuestro-amor__cabecera { text-align: center; padding: 4.5rem 1.6rem 1.5rem; }
+.icono-camara { width: 68px; height: 52px; color: var(--gris-claro); margin: 0 auto; }
+.collage { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; background: var(--marfil); }
+.collage__foto { aspect-ratio: 3/4; overflow: hidden; background: linear-gradient(160deg, var(--beige), var(--arena)); }
+.collage__foto img { width: 100%; height: 100%; object-fit: cover; }
+.collage__foto.sin-foto img { opacity: 0; }
+
+/* ============ 5. CITA BÍBLICA ============ */
+.s--cita {
+  background: var(--blush); text-align: center;
+  padding-top: 4.5rem; padding-bottom: 5.5rem;
+  clip-path: polygon(0.0% 4.00%, 4.2% 6.00%, 8.3% 7.46%, 12.5% 8.00%, 16.7% 7.46%, 20.8% 6.00%, 25.0% 4.00%, 29.2% 2.00%, 33.3% 0.54%, 37.5% 0.00%, 41.7% 0.54%, 45.8% 2.00%, 50.0% 4.00%, 54.2% 6.00%, 58.3% 7.46%, 62.5% 8.00%, 66.7% 7.46%, 70.8% 6.00%, 75.0% 4.00%, 79.2% 2.00%, 83.3% 0.54%, 87.5% 0.00%, 91.7% 0.54%, 95.8% 2.00%, 100.0% 4.00%, 100.0% 96.00%, 95.8% 94.00%, 91.7% 92.54%, 87.5% 92.00%, 83.3% 92.54%, 79.2% 94.00%, 75.0% 96.00%, 70.8% 98.00%, 66.7% 99.46%, 62.5% 100.00%, 58.3% 99.46%, 54.2% 98.00%, 50.0% 96.00%, 45.8% 94.00%, 41.7% 92.54%, 37.5% 92.00%, 33.3% 92.54%, 29.2% 94.00%, 25.0% 96.00%, 20.8% 98.00%, 16.7% 99.46%, 12.5% 100.00%, 8.3% 99.46%, 4.2% 98.00%, 0.0% 96.00%);
+  margin: -3rem 0;
+}
+.garabato { width: min(70%, 260px); height: 32px; color: var(--dorado); margin: 0 auto 2rem; display: block; }
+.comillas { font-family: 'Poppins', sans-serif; color: var(--dorado); font-size: 1.4rem; letter-spacing: 0.3em; margin: 0 0 1rem; }
+.cita__texto {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: clamp(1.15rem, 4.4vw, 1.5rem); color: #4a4438;
+  max-width: 32ch; margin: 0 auto 1.6em; line-height: 1.5;
+}
+.cita__ref { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--gris); }
+
+/* ============ 6. NUESTRA FIESTA ============ */
+.s--fiesta { background: var(--marfil); text-align: center; }
+.icono-pareja { width: 130px; height: auto; color: #4a4438; margin: 0 auto 2.4rem; display: block; }
+.dresscode { display: grid; gap: 2rem; max-width: 380px; margin: 0 auto; }
+.dresscode__col h4 {
+  font-family: 'Poppins', sans-serif; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; font-size: 0.85rem; color: #2E2A24; margin: 0 0 0.5em;
+}
+.dresscode__col p { font-size: 0.92rem; line-height: 1.6; margin: 0; }
+.icono-musica { width: 90px; height: 60px; color: var(--gris-claro); margin: 0 auto 1.6rem; display: block; }
+.boton-dorado {
+  display: inline-block; margin-top: 1.6rem; padding: 0.85rem 2.4rem;
+  background: linear-gradient(160deg, var(--dorado-claro), var(--dorado));
+  color: #2c1d16; text-decoration: none; border-radius: 30px;
+  font-family: 'Poppins', sans-serif; font-weight: 500; font-size: 0.95rem;
+}
+.icono-sobre { width: 100px; height: 60px; color: var(--gris-claro); margin: 0.4rem auto 0; display: block; }
+
+/* ============ 7. COMPARTE FOTOS ============ */
+.s--comparte {
+  min-height: 74vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 3rem 1.6rem;
+}
+.s--comparte__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.s--comparte.sin-foto .s--comparte__bg { display: none; }
+.s--comparte.sin-foto { background: linear-gradient(160deg, #6b5643, #4a3826); }
+.s--comparte__velo { position: absolute; inset: 0; z-index: 1; background: rgba(20,14,8,0.42); }
+.icono-camara-grande { position: relative; z-index: 2; width: 84px; height: 64px; color: rgba(255,253,248,0.75); margin-bottom: 1.2rem; }
+.s--comparte h2 {
+  position: relative; z-index: 2; font-family: 'Cormorant Garamond', serif; font-weight: 600;
+  color: #FFFDF8; font-size: clamp(1.7rem, 6.5vw, 2.4rem); text-shadow: 0 2px 14px rgba(0,0,0,0.4); margin: 0;
+}
+.hashtag { position: relative; z-index: 2; color: #FFFDF8; font-family: 'Poppins', sans-serif; font-weight: 600; margin-top: 1rem; letter-spacing: 0.03em; }
+
+/* ============ 8. RECOMENDACIONES ============ */
+.s--recomendaciones { background: var(--marfil); text-align: center; padding-top: 0; }
+.s--recomendaciones__foto { width: 100%; aspect-ratio: 16/8; overflow: hidden; margin-bottom: 3rem; background: linear-gradient(160deg, var(--beige), var(--arena)); }
+.s--recomendaciones__foto img { width: 100%; height: 100%; object-fit: cover; }
+.s--recomendaciones__foto.sin-foto img { opacity: 0; }
+.icono-nino { width: 90px; height: 70px; color: #4a4438; margin: 0 auto 1.4rem; display: block; }
+.s--recomendaciones p:last-child { max-width: 30ch; margin: 0 auto; }
+
+@media (min-width: 720px) {
+  .dresscode { grid-template-columns: 1fr 1fr; max-width: 620px; }
+}
