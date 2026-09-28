@@ -76,9 +76,12 @@ if ("IntersectionObserver" in window) {
   var ultimoTiempo = null;
   var velSuave = VELOCIDAD; // velocidad al ritmo de la música (suavizada)
   var iniciado = false; // la tarjeta empieza a moverse al primer toque
+  var arranqueTiempo = 0; // ignora los eventos del toque que arranca
 
   ["wheel", "touchstart", "touchmove", "mousedown", "keydown"].forEach(function (ev) {
     window.addEventListener(ev, function () {
+      // el mismo toque genera pointerdown+touchstart+click: no pausar por él
+      if (Date.now() - arranqueTiempo < 800) return;
       ultimaInteraccion = Date.now();
     }, { passive: true });
   });
@@ -89,6 +92,7 @@ if ("IntersectionObserver" in window) {
     if (iniciado) return;
     iniciado = true;
     espera = 0;
+    arranqueTiempo = Date.now();
     ultimaInteraccion = Date.now() - PAUSA_USUARIO * 1000 - 1000;
     ["pointerdown", "touchstart", "click", "keydown"].forEach(function (ev) {
       window.removeEventListener(ev, arrancar);
