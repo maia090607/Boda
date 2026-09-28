@@ -53,3 +53,55 @@ if ("IntersectionObserver" in window) {
 } else {
   elementosRevelar.forEach((el) => el.classList.add("mostrar"));
 }
+
+// Deslizamiento automático: la tarjeta baja sola, al llegar al final
+// espera, vuelve arriba y repite. Si el invitado toca o desliza,
+// se pausa unos segundos y luego continúa. No se activa si el usuario
+// prefiere movimiento reducido.
+(function () {
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  var VELOCIDAD = 45; // píxeles por segundo
+  var ESPERA_INICIO = 2.5; // segundos antes de empezar a bajar
+  var ESPERA_FINAL = 2.5; // segundos quieto al llegar abajo
+  var PAUSA_USUARIO = 7; // segundos de pausa tras tocar/deslizar
+  var espera = ESPERA_INICIO;
+  var regresando = false;
+  var ultimaInteraccion = 0;
+  var ultimoTiempo = null;
+
+  ["wheel", "touchstart", "touchmove", "mousedown", "keydown"].forEach(function (ev) {
+    window.addEventListener(ev, function () {
+      ultimaInteraccion = Date.now();
+    }, { passive: true });
+  });
+
+  function paso(tiempo) {
+    if (ultimoTiempo === null) ultimoTiempo = tiempo;
+    var dt = Math.min((tiempo - ultimoTiempo) / 1000, 0.1);
+    ultimoTiempo = tiempo;
+
+    if (espera > 0) {
+      espera -= dt;
+    } else if (!regresando && Date.now() - ultimaInteraccion > PAUSA_USUARIO * 1000) {
+      var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (maxScroll > 0) {
+        if (window.scrollY + 2 >= maxScroll) {
+          regresando = true;
+          setTimeout(function () {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            setTimeout(function () {
+              regresando = false;
+              espera = ESPERA_INICIO;
+            }, 1500);
+          }, ESPERA_FINAL * 1000);
+        } else {
+          window.scrollBy(0, VELOCIDAD * dt);
+        }
+      }
+    }
+    requestAnimationFrame(paso);
+  }
+
+  requestAnimationFrame(paso);
+})();
