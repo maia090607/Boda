@@ -83,15 +83,16 @@ img { max-width: 100%; display: block; }
 .s--portada.sin-foto { background: radial-gradient(120% 90% at 50% 20%, #4a3826, #241a12 75%); min-height: 100svh; }
 .s--portada__velo {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: linear-gradient(180deg, rgba(20,14,8,0.60) 0%, rgba(20,14,8,0.12) 22%, rgba(20,14,8,0) 38%, rgba(20,14,8,0) 62%, rgba(20,14,8,0.55) 82%, rgba(20,14,8,0.88) 100%);
+  background: linear-gradient(180deg, rgba(20,14,8,0.55) 0%, rgba(20,14,8,0.10) 26%, rgba(20,14,8,0) 42%, rgba(20,14,8,0.18) 60%, rgba(20,14,8,0.62) 82%, rgba(20,14,8,0.90) 100%);
 }
 .s--portada__contenido {
   position: absolute; inset: 0; z-index: 2; color: #FFFDF8;
   width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-  padding: 2rem 0.6rem 2.6rem;
+  padding: 3rem 0.6rem 3.4rem;
   line-height: 1.2;
 }
 .s--portada__spacer { flex: 1; min-height: 0; }
+.s--portada__spacer--arriba { flex: 2.8; min-height: 38svh; }
 /* Nombres portada: dos líneas, centrados, grandes */
 .s--portada__nombres {
   font-family: 'Cormorant Garamond', serif;
@@ -225,27 +226,52 @@ img { max-width: 100%; display: block; }
 }
 .lugar__nombre { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.45rem; color: #2E2A24; margin: 0 0 0.35em; line-height: 1.35; text-align: center; }
 .lugar__dir { font-size: 1.02rem; color: var(--gris); margin: 0 0 0.3em; line-height: 1.5; }
-.lugar__hora { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.25rem; letter-spacing: 0.1em; color: var(--dorado); margin: 0.3em 0 0.9em; }
+.lugar__hora { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.35rem; letter-spacing: 0.12em; color: var(--dorado); margin: 0.5em 0 0.9em; }
+/* hora decorada: pastilla dorada con doble marco y brillo */
+.lugar__hora--decorada {
+  display: inline-flex; align-items: center; gap: 0.6em;
+  font-size: clamp(1.4rem, 5.5vw, 1.7rem);
+  padding: 0.45em 1.1em;
+  background: linear-gradient(180deg, #FFFDF8, #F9F0DC);
+  border: 1.5px solid var(--dorado-claro);
+  outline: 1px solid rgba(176,141,79,0.4);
+  outline-offset: 4px;
+  border-radius: 999px;
+  box-shadow: 0 10px 22px -12px rgba(176,141,79,0.8);
+}
+.lugar__hora--decorada span { font-size: 0.8em; color: var(--dorado-claro); }
 .lugar__link {
   display: inline-block; margin-top: 0.6rem; font-size: 0.92rem; letter-spacing: 0.04em;
   color: var(--dorado); text-decoration: none; border-bottom: 1px solid var(--dorado-claro); padding-bottom: 2px;
 }
 
 /* ============ 3. ITINERARIO ============ */
-.s--itinerario { background: var(--marfil); }
-.linea-tiempo { max-width: 440px; margin: 0 auto; position: relative; padding-left: 4px; }
+.s--itinerario { background: var(--marfil); display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100svh; text-align: left; }
+.s--itinerario .titulo-serif { text-align: center; }
+.linea-tiempo { width: 100%; max-width: 400px; margin: 0 auto; position: relative; padding-left: 4px; }
 .linea-tiempo::before {
-  content: ""; position: absolute; left: 51px; top: 6px; bottom: 6px; width: 1px;
+  content: ""; position: absolute; left: 66px; top: 6px; bottom: 6px; width: 1px;
   background: rgba(58,46,34,0.3);
 }
 .linea-tiempo__evento {
-  display: grid; grid-template-columns: 36px 18px 1fr; align-items: center;
-  column-gap: 0.55rem; padding: 1.25rem 0;
+  display: grid; grid-template-columns: 66px 18px 1fr; align-items: center;
+  column-gap: 0.55rem; padding: 1.35rem 0;
 }
-.icono { width: 38px; height: 38px; color: var(--dorado); justify-self: start; flex-shrink: 0; }
+.icono-marco {
+  width: 60px; height: 60px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: #FFFDF8;
+  border: 1.5px solid var(--dorado-claro);
+  outline: 1px solid rgba(176,141,79,0.35);
+  outline-offset: 3px;
+  box-shadow: 0 8px 18px -10px rgba(58,46,34,0.5);
+  justify-self: start; flex-shrink: 0;
+}
+.icono { width: 34px; height: 34px; color: var(--dorado); display: block; }
 .linea-tiempo__punto { width: 10px; height: 10px; border-radius: 50%; background: var(--dorado-claro); margin: 0 auto; }
-.linea-tiempo__texto strong { display: block; font-family: 'Playfair Display', serif; font-weight: 700; font-style: normal; font-size: 1.35rem; color: #2E2A24; letter-spacing: 0.02em; }
-.linea-tiempo__texto span { display: block; font-family: 'Cormorant Garamond', serif; font-weight: 600; font-style: italic; font-size: 1.25rem; color: #4a4438; margin-top: 0.2em; }
+/* Horas en negrita serif grande + descripción en otra serif más grande */
+.linea-tiempo__texto strong { display: block; font-family: 'Playfair Display', serif; font-weight: 700; font-style: normal; font-size: clamp(2.1rem, 8vw, 2.7rem); color: #2E2A24; letter-spacing: 0.03em; line-height: 1.1; }
+.linea-tiempo__texto span { display: block; font-family: 'Cormorant Garamond', serif; font-weight: 600; font-style: italic; font-size: clamp(1.7rem, 6.8vw, 2.15rem); color: #4a4438; margin-top: 0.25em; line-height: 1.3; }
 
 /* ============ 4. NUESTRO AMOR ============ */
 .s--nuestro-amor { padding: 0; background: var(--marfil); }
@@ -271,7 +297,15 @@ img { max-width: 100%; display: block; }
   text-align: center;
   min-height: 100svh; display: flex; align-items: center; justify-content: center;
 }
-.cita__marco { max-width: 460px; padding: 0 1.2rem; }
+.cita__marco {
+  max-width: 460px; padding: 2.2rem 1.4rem;
+  border: 1px solid rgba(176,141,79,0.4);
+  outline: 1px solid rgba(176,141,79,0.3);
+  outline-offset: 6px;
+  border-radius: 8px;
+  background: rgba(255,253,248,0.55);
+  box-shadow: 0 14px 30px -20px rgba(58,46,34,0.35);
+}
 .comillas { font-family: 'Cormorant Garamond', serif; font-style: normal; font-weight: 700; color: var(--dorado); font-size: 4.5rem; line-height: 1; margin: 0 0 0.1rem; }
 /* cita con serif elegante, compacta y grande */
 .cita__texto {
@@ -281,7 +315,7 @@ img { max-width: 100%; display: block; }
   max-width: 30ch;
 }
 .cita__divisor { width: 60px; height: 1px; background: var(--dorado-claro); margin: 0 auto 1.4em; }
-.cita__ref { font-family: 'Poppins', sans-serif; font-weight: 600; letter-spacing: 0.12em; font-size: 0.95rem; color: var(--gris); text-transform: uppercase; }
+.cita__ref { font-family: 'Cormorant Garamond', serif; font-weight: 700; letter-spacing: 0.08em; font-size: clamp(1.5rem, 6vw, 1.9rem); color: var(--dorado); text-transform: uppercase; }
 
 /* ============ 6. NUESTRA FIESTA ============ */
 .s--fiesta { background: var(--marfil); text-align: center; }
@@ -370,9 +404,10 @@ img { max-width: 100%; display: block; }
 .tarjeta-info--confirma .tarjeta-info__texto--confirma {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 600;
-  font-size: 1.35rem;
+  font-size: clamp(1.5rem, 6vw, 1.9rem);
+  line-height: 1.6;
 }
-.tarjeta-info--confirma .lugar__link { border-bottom: none; color: var(--dorado); }
+.tarjeta-info--confirma .lugar__link { border-bottom: none; color: var(--dorado); display: inline-block; margin-top: 0.3em; font-size: clamp(2rem, 8.5vw, 2.8rem); font-weight: 700; letter-spacing: 0.05em; white-space: nowrap; }
 
 /* ============ 7. COMPARTE FOTOS (imagen completa, sin recortar) ============ */
 .s--comparte { padding: 0; line-height: 0; }
@@ -385,7 +420,8 @@ img { max-width: 100%; display: block; }
 .s--recomendaciones .titulo-serif { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-style: normal; letter-spacing: 0.02em; font-size: clamp(2.3rem, 8vw, 3.1rem); }
 .s--recomendaciones .subtitulo { font-family: 'Jost', sans-serif; font-size: 1.2rem; color: #4a4438; }
 .s--recomendaciones .subtitulo-h3 { font-family: 'Poppins', sans-serif; font-weight: 600; letter-spacing: 0.04em; font-size: 1.65rem; color: #2E2A24; }
-.icono-nino { width: 112px; height: auto; color: var(--dorado); margin: 0 auto 1.4rem; display: block; }
+.icono-nino { width: 180px; height: auto; color: var(--dorado); margin: 0 auto 1.4rem; display: block; }
+.icono-nino--durmiendo { width: min(72%, 260px); height: auto; }
 .s--recomendaciones p:last-child { max-width: 34ch; margin: 0 auto; font-family: 'Jost', sans-serif; font-weight: 400; font-size: 1.25rem; line-height: 1.6; color: #3d372d; }
 
 /* ============ 9. CIERRE ============ */
@@ -417,6 +453,58 @@ img { max-width: 100%; display: block; }
   font-size: clamp(1.9rem, 8vw, 3rem);
 }
 .s--cierre__texto--arriba strong { display: block; font-weight: 700; letter-spacing: 0.08em; margin-top: 0.3em; }
+
+/* ============ DECORACIÓN CADA HOJA + CITA ============ */
+.s--nos-casamos::before,
+.s--lugares::before,
+.s--itinerario::before,
+.s--fiesta::before,
+.s--recomendaciones::before {
+  content: ""; position: absolute; inset: 12px;
+  border: 1px solid rgba(176,141,79,0.18);
+  outline: 1px solid rgba(176,141,79,0.12);
+  outline-offset: 4px; border-radius: 10px;
+  pointer-events: none;
+}
+.s--nos-casamos::after,
+.s--lugares::after,
+.s--fiesta::after,
+.s--recomendaciones::after {
+  content: "✦"; position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+  color: var(--dorado-claro); font-size: 0.9rem; opacity: 0.6;
+}
+.s--cita { position: relative; overflow: hidden; }
+.s--cita::before {
+  content: "❧"; position: absolute; top: 4%; left: 50%; transform: translateX(-50%) rotate(90deg);
+  font-size: 2rem; color: rgba(176,141,79,0.35);
+}
+.s--cita::after {
+  content: "❧"; position: absolute; bottom: 4%; left: 50%; transform: translateX(-50%) rotate(-90deg);
+  font-size: 2rem; color: rgba(176,141,79,0.35);
+}
+.cita__marco { position: relative; }
+.cita__marco::before,
+.cita__marco::after {
+  content: ""; position: absolute; width: 28px; height: 28px;
+  border: 2px solid var(--dorado-claro); opacity: 0.7;
+}
+.cita__marco::before { top: -2px; left: -2px; border-right: none; border-bottom: none; border-radius: 8px 0 0 0; }
+.cita__marco::after { bottom: -2px; right: -2px; border-left: none; border-top: none; border-radius: 0 0 8px 0; }
+.cita__divisor { display: flex; align-items: center; justify-content: center; gap: 0.6rem; background: none; width: auto; }
+.cita__divisor::before, .cita__divisor::after { content: ""; width: 50px; height: 1px; background: var(--dorado-claro); }
+.cita__divisor::after { width: 50px; }
+.cita__ref {
+  display: inline-flex; align-items: center; gap: 0.7em;
+  padding: 0.35em 1em; border: 1px solid rgba(176,141,79,0.45);
+  border-radius: 999px; background: rgba(255,253,248,0.7);
+  box-shadow: 0 8px 20px -12px rgba(176,141,79,0.7);
+}
+.lugar__hora--decorada { position: relative; }
+.lugar__hora--decorada::after {
+  content: "✦ ✦ ✦"; position: absolute; left: 50%; bottom: -1.4em; transform: translateX(-50%);
+  font-size: 0.45em; letter-spacing: 0.4em; text-indent: 0.4em; color: var(--dorado-claro); opacity: 0.8; white-space: nowrap;
+}
+.lugar { padding-bottom: 1.2rem; }
 
 @media (min-width: 720px) {
   .dresscode { grid-template-columns: 1fr 1fr; max-width: 620px; }
