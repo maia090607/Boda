@@ -19,33 +19,35 @@ body {
   background: var(--crema);
   color: var(--gris);
   font-family: 'Jost', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
+  font-size: 1.05rem;
   overflow-x: hidden;
 }
 img { max-width: 100%; display: block; }
 
 .titulo-dorado {
   font-family: 'Poppins', sans-serif;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--dorado-claro);
   text-align: center;
-  font-size: clamp(1.7rem, 6vw, 2.3rem);
+  font-size: clamp(1.9rem, 6.5vw, 2.6rem);
   margin: 0 0 0.3em;
 }
-.titulo-dorado--grande { font-size: clamp(2.1rem, 8vw, 3rem); line-height: 1.15; }
+.titulo-dorado--grande { font-size: clamp(2.3rem, 8.5vw, 3.2rem); line-height: 1.15; }
 .subtitulo {
   text-align: center;
-  font-size: 0.95rem;
+  font-size: 1.08rem;
   color: var(--gris);
-  max-width: 30ch;
+  max-width: 34ch;
   margin: 0 auto 1.6em;
+  line-height: 1.5;
 }
 .subtitulo-h3 {
   font-family: 'Poppins', sans-serif;
-  font-weight: 500;
+  font-weight: 600;
   color: #2E2A24;
   text-align: center;
-  font-size: 1.4rem;
+  font-size: 1.65rem;
   margin: 0 0 1.2em;
 }
 .divisor { width: 140px; height: 1px; background: rgba(58,46,34,0.25); margin: 2.2rem auto; }
@@ -59,66 +61,86 @@ img { max-width: 100%; display: block; }
   .reveal { opacity: 1; transform: none; transition: none; }
 }
 
-/* ============ 1. PORTADA ============ */
+/* ============ 1. PORTADA (foto completa, sin recortes) ============ */
 .s--portada {
-  min-height: 100svh;
-  display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
-  padding-top: 4.2rem;
+  position: relative;
+  min-height: auto;
+  display: block;
+  padding: 0;
   text-align: center;
   background: linear-gradient(180deg, #241a12, #2c1d16);
+  line-height: 0;
+  overflow: hidden;
 }
-.s--portada__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.92; }
+.s--portada__bg { position: relative; display: block; width: 100%; height: auto; object-fit: contain; z-index: 0; opacity: 0.96; transform: scale(1.08); transform-origin: 50% 100%; }
 .s--portada.sin-foto .s--portada__bg { display: none; }
-.s--portada.sin-foto { background: radial-gradient(120% 90% at 50% 20%, #4a3826, #241a12 75%); }
+.s--portada.sin-foto { background: radial-gradient(120% 90% at 50% 20%, #4a3826, #241a12 75%); min-height: 100svh; }
 .s--portada__velo {
-  position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(180deg, rgba(20,14,8,0.65) 0%, rgba(20,14,8,0.05) 32%, rgba(20,14,8,0.05) 60%, rgba(20,14,8,0.75) 100%);
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(20,14,8,0.60) 0%, rgba(20,14,8,0.12) 22%, rgba(20,14,8,0) 38%, rgba(20,14,8,0) 62%, rgba(20,14,8,0.55) 82%, rgba(20,14,8,0.88) 100%);
 }
 .s--portada__contenido {
-  position: relative; z-index: 2; color: #FFFDF8;
-  flex: 1; width: 100%; display: flex; flex-direction: column; align-items: center;
-  padding-bottom: 3.2rem;
+  position: absolute; inset: 0; z-index: 2; color: #FFFDF8;
+  width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+  padding: 12rem 0.2rem 4.2rem;
+  line-height: 1.2;
 }
-.s--portada__spacer { flex: 1; min-height: 1.5rem; }
+.s--portada__spacer { flex: 1; min-height: 0; }
+/* Nombres portada: una sola línea, grandísimos */
+.s--portada__nombres {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(2.4rem, 10vw, 5.8rem);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  margin: 0;
+  white-space: nowrap;
+  text-align: center;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.55);
+}
+/* compatibilidad con versión anterior */
 .s--portada h1 {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 600;
-  font-size: clamp(2.7rem, 11vw, 4.1rem);
-  letter-spacing: 0.03em;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(2.4rem, 10vw, 5.8rem);
+  letter-spacing: 0.02em;
+  line-height: 1.2;
   margin: 0;
-  text-shadow: 0 2px 18px rgba(0,0,0,0.35);
-  display: flex; align-items: center; justify-content: center; gap: clamp(0.5rem, 3vw, 1rem);
-  flex-wrap: wrap;
+  white-space: nowrap;
+  text-shadow: 0 2px 18px rgba(0,0,0,0.5);
 }
-.s--portada h1 .corazon { width: clamp(18px, 5vw, 24px); height: auto; color: var(--blush-linea); flex-shrink: 0; filter: drop-shadow(0 1px 4px rgba(0,0,0,0.3)); }
-.flor { width: min(55%, 200px); height: 22px; color: var(--dorado-claro); margin: 1.6rem 0 1.2rem; opacity: 0.9; }
+.flor { width: min(60%, 220px); height: 24px; color: var(--dorado-claro); margin: 1rem 0 0.9rem; opacity: 0.95; }
 .s--portada__fecha {
-  margin: 0 0 1.6rem;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.1rem, 4vw, 1.5rem);
-  letter-spacing: 0.18em;
+  margin: 0 0 1.2rem;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.7rem, 6.4vw, 2.6rem);
+  letter-spacing: 0.2em;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
 }
-.contador { position: relative; z-index: 2; display: flex; gap: clamp(0.5rem, 3vw, 1rem); justify-content: center; }
+.contador { position: relative; z-index: 2; display: flex; gap: clamp(0.6rem, 3vw, 1rem); justify-content: center; flex-wrap: wrap; }
 .contador__item {
-  background: rgba(255,253,248,0.12);
-  border: 1px solid rgba(255,253,248,0.4);
+  background: rgba(255,253,248,0.14);
+  border: 1px solid rgba(255,253,248,0.45);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   color: #FFFDF8;
-  border-radius: 8px;
-  min-width: 62px;
-  padding: 0.7rem 0.4rem 0.5rem;
+  border-radius: 10px;
+  min-width: 88px;
+  padding: 1rem 0.65rem 0.75rem;
 }
-.contador__item span { display: block; color: #FFFFFF; font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: clamp(1.5rem, 5.5vw, 1.9rem); line-height: 1; }
-.contador__item small { display: block; margin-top: 0.35em; font-size: 0.62rem; letter-spacing: 0.08em; color: rgba(255,253,248,0.8); text-transform: uppercase; }
+.contador__item span { display: block; color: #FFFFFF; font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: clamp(2.5rem, 8.6vw, 3.5rem); line-height: 1; }
+.contador__item small { display: block; margin-top: 0.4em; font-size: 0.75rem; letter-spacing: 0.1em; color: rgba(255,253,248,0.85); text-transform: uppercase; }
 
 .scroll-cue {
-  position: absolute; left: 50%; bottom: 1.8rem; transform: translateX(-50%);
-  z-index: 2; display: flex; flex-direction: column; align-items: center; color: #FFFDF8;
+  position: absolute; left: 50%; bottom: 0.35rem; transform: translateX(-50%);
+  z-index: 2; display: flex; flex-direction: column; align-items: center; color: #FFFDF8; line-height: 1.2;
 }
-.chevron { width: 22px; height: 22px; margin-bottom: -10px; animation: subir 1.6s infinite; opacity: 0.85; }
+.chevron { width: 18px; height: 18px; margin-bottom: -8px; animation: subir 1.6s infinite; opacity: 0.85; }
 .chevron--2 { animation-delay: 0.25s; }
-.scroll-cue span { margin-top: 0.6rem; font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.14em; }
+.scroll-cue span { margin-top: 0.45rem; font-family: 'Poppins', sans-serif; font-size: 0.78rem; letter-spacing: 0.14em; }
 @keyframes subir {
   0% { transform: translateY(6px); opacity: 0; }
   40% { opacity: 0.9; }
@@ -126,96 +148,111 @@ img { max-width: 100%; display: block; }
 }
 
 /* ============ 2. NOS CASAMOS ============ */
-.s--nos-casamos { background: var(--marfil); text-align: center; padding-bottom: 0; }
-.script-dorado {
-  font-family: 'Sacramento', cursive;
+.s--nos-casamos { background: var(--marfil); text-align: center; padding-bottom: 3rem; }
+/* sección promesa: serif elegante legible */
+.texto-legible {
+  font-family: 'Jost', sans-serif;
   font-weight: 400;
+  color: #3d372d;
+  font-size: clamp(1.15rem, 4.6vw, 1.4rem);
+  line-height: 1.65;
+  max-width: 38ch;
+  margin: 0 auto 3rem;
+}
+/* títulos: Playfair elegante y legible */
+.script-dorado {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 600;
   color: var(--dorado);
-  font-size: clamp(2.3rem, 9.5vw, 3.1rem);
-  line-height: 1.35;
+  font-size: clamp(2.3rem, 8vw, 3.3rem);
+  line-height: 1.3;
+  padding: 0 0.3em 0.2em;
   margin: 0 0 0.5em;
 }
 .script-texto {
-  font-family: 'Sacramento', cursive;
-  color: #4a4438;
-  font-size: clamp(1.25rem, 4.8vw, 1.55rem);
-  line-height: 1.55;
-  max-width: 34ch;
+  font-family: 'Jost', sans-serif;
+  color: #3d372d;
+  font-size: clamp(1.15rem, 4.6vw, 1.4rem);
+  line-height: 1.65;
+  max-width: 38ch;
   margin: 0 auto 3rem;
 }
+/* segunda foto: encuadrada y más grande */
 .foto-rota {
-  width: 100%; max-width: 420px; margin: 0 auto;
+  width: 100%; max-width: 560px; margin: 0 auto;
 }
 .foto-rota__interior {
-  padding: 12px;
-  border: 1px solid var(--dorado-claro);
-  outline: 1px solid rgba(176,141,79,0.3);
-  outline-offset: 6px;
+  padding: 14px;
+  border: 2px solid var(--dorado-claro);
+  outline: 1px solid rgba(176,141,79,0.4);
+  outline-offset: 8px;
   background: var(--marfil);
-  box-shadow: 0 18px 40px -18px rgba(58,46,34,0.4);
+  box-shadow: 0 22px 50px -18px rgba(58,46,34,0.45);
 }
-.foto-rota img { width: 100%; height: auto; display: block; }
-.foto-rota.sin-foto img { opacity: 0; min-height: 260px; }
+.foto-rota img { width: 100%; height: auto; display: block; object-fit: contain; }
+.foto-rota.sin-foto img { opacity: 0; min-height: 320px; }
 
 /* ============ TÍTULOS SERIF (reutilizable) ============ */
 .titulo-serif {
   font-family: 'Playfair Display', serif;
-  font-weight: 600;
-  font-style: italic;
-  color: var(--dorado-claro);
+  font-weight: 700;
+  font-style: normal;
+  color: var(--dorado);
   text-align: center;
-  font-size: clamp(1.8rem, 6.5vw, 2.4rem);
-  margin: 0 0 0.5em;
+  font-size: clamp(2.1rem, 7.5vw, 2.9rem);
+  margin: 0 0 0.6em;
+  letter-spacing: 0.01em;
 }
 
 /* ============ 3a. LUGARES ============ */
 .s--lugares { background: var(--marfil); padding-bottom: 1rem; }
-.lugar { max-width: 380px; margin: 0 auto 2.6rem; text-align: center; }
-.lugar__icono { width: 40px; height: 40px; color: var(--dorado); margin: 0 auto 0.8rem; display: block; }
+.lugar { max-width: 420px; margin: 0 auto 2.8rem; text-align: center; }
+.lugar__icono { width: 44px; height: 44px; color: var(--dorado); margin: 0 auto 0.8rem; display: block; }
 .lugar h3 {
   font-family: 'Poppins', sans-serif; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.12em; font-size: 0.78rem; color: var(--gris-claro); margin: 0 0 0.5em;
+  letter-spacing: 0.12em; font-size: 0.9rem; color: var(--gris-claro); margin: 0 0 0.5em;
 }
-.lugar__nombre { font-family: 'Playfair Display', serif; font-weight: 600; font-size: 1.25rem; color: #2E2A24; margin: 0 0 0.35em; }
-.lugar__dir { font-size: 0.9rem; color: var(--gris); margin: 0 0 0.3em; line-height: 1.5; }
-.lugar__hora { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; letter-spacing: 0.1em; color: var(--dorado); margin: 0.2em 0 0.8em; }
+.lugar__nombre { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.45rem; color: #2E2A24; margin: 0 0 0.35em; line-height: 1.3; }
+.lugar__dir { font-size: 1.02rem; color: var(--gris); margin: 0 0 0.3em; line-height: 1.5; }
+.lugar__hora { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.25rem; letter-spacing: 0.1em; color: var(--dorado); margin: 0.3em 0 0.9em; }
 .lugar__link {
-  display: inline-block; margin-top: 0.6rem; font-size: 0.8rem; letter-spacing: 0.04em;
+  display: inline-block; margin-top: 0.6rem; font-size: 0.92rem; letter-spacing: 0.04em;
   color: var(--dorado); text-decoration: none; border-bottom: 1px solid var(--dorado-claro); padding-bottom: 2px;
 }
 
 /* ============ 3. ITINERARIO ============ */
 .s--itinerario { background: var(--marfil); }
-.linea-tiempo { max-width: 420px; margin: 0 auto; position: relative; padding-left: 4px; }
+.linea-tiempo { max-width: 440px; margin: 0 auto; position: relative; padding-left: 4px; }
 .linea-tiempo::before {
   content: ""; position: absolute; left: 51px; top: 6px; bottom: 6px; width: 1px;
   background: rgba(58,46,34,0.3);
 }
 .linea-tiempo__evento {
-  display: grid; grid-template-columns: 34px 18px 1fr; align-items: center;
-  column-gap: 0.5rem; padding: 1.15rem 0;
+  display: grid; grid-template-columns: 36px 18px 1fr; align-items: center;
+  column-gap: 0.55rem; padding: 1.25rem 0;
 }
-.icono { width: 27px; height: 27px; color: var(--tinta); justify-self: start; }
-.linea-tiempo__punto { width: 9px; height: 9px; border-radius: 50%; background: var(--dorado-claro); margin: 0 auto; }
-.linea-tiempo__texto strong { display: block; font-family: 'Playfair Display', serif; font-weight: 600; font-style: italic; font-size: 1.05rem; color: #2E2A24; }
-.linea-tiempo__texto span { display: block; font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; color: var(--gris-claro); margin-top: 0.2em; }
+.icono { width: 30px; height: 30px; color: var(--tinta); justify-self: start; }
+.linea-tiempo__punto { width: 10px; height: 10px; border-radius: 50%; background: var(--dorado-claro); margin: 0 auto; }
+.linea-tiempo__texto strong { display: block; font-family: 'Poppins', sans-serif; font-weight: 600; font-style: normal; font-size: 1.2rem; color: #2E2A24; }
+.linea-tiempo__texto span { display: block; font-family: 'Jost', sans-serif; font-weight: 400; font-size: 1.08rem; color: #4a4438; margin-top: 0.25em; }
 
 /* ============ 4. NUESTRO AMOR ============ */
 .s--nuestro-amor { padding: 0; background: var(--marfil); }
-.s--nuestro-amor__cabecera { text-align: center; padding: 4.5rem 1.6rem 2.2rem; }
+.s--nuestro-amor__cabecera { text-align: center; padding: 4.5rem 1.6rem 2.4rem; }
 .titulo-elegante {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
   color: var(--tinta);
   text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-size: clamp(1.5rem, 6vw, 2rem);
-  line-height: 1.4;
+  letter-spacing: 0.1em;
+  font-size: clamp(1.8rem, 7vw, 2.5rem);
+  line-height: 1.3;
   margin: 0;
 }
-.collage { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; background: var(--crema); }
-.collage__foto { aspect-ratio: 3/4; overflow: hidden; background: linear-gradient(160deg, var(--beige), var(--arena)); }
-.collage__foto img { width: 100%; height: 100%; object-fit: cover; }
+.collage { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; background: var(--crema); align-items: stretch; }
+.collage__foto { aspect-ratio: 2/3; overflow: hidden; background: linear-gradient(160deg, var(--beige), var(--arena)); }
+.collage__foto img { width: 100%; height: 100%; object-fit: cover; object-position: center 15%; display: block; }
 .collage__foto.sin-foto img { opacity: 0; }
 
 /* ============ 5. CITA BÍBLICA (hoja propia) ============ */
@@ -224,56 +261,87 @@ img { max-width: 100%; display: block; }
   text-align: center;
   min-height: 100svh; display: flex; align-items: center; justify-content: center;
 }
-.cita__marco { max-width: 420px; padding: 0 1rem; }
-.comillas { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 600; color: var(--dorado); font-size: 4.8rem; line-height: 1; margin: 0 0 0.1rem; }
+.cita__marco { max-width: 460px; padding: 0 1.2rem; }
+.comillas { font-family: 'Cormorant Garamond', serif; font-style: normal; font-weight: 700; color: var(--dorado); font-size: 4.5rem; line-height: 1; margin: 0 0 0.1rem; }
+/* cita con serif elegante, compacta y grande */
 .cita__texto {
-  font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500;
-  font-size: clamp(1.35rem, 5.2vw, 1.75rem); color: #4a4438;
-  margin: 0 auto 1.8em; line-height: 1.62;
+  font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 600;
+  font-size: clamp(1.65rem, 6vw, 2.2rem); color: #2E2A24;
+  margin: 0 auto 1.2em; line-height: 1.32; letter-spacing: 0.005em;
+  max-width: 30ch;
 }
 .cita__divisor { width: 60px; height: 1px; background: var(--dorado-claro); margin: 0 auto 1.4em; }
-.cita__ref { font-family: 'Poppins', sans-serif; font-weight: 500; letter-spacing: 0.12em; font-size: 0.85rem; color: var(--gris); text-transform: uppercase; }
+.cita__ref { font-family: 'Poppins', sans-serif; font-weight: 600; letter-spacing: 0.12em; font-size: 0.95rem; color: var(--gris); text-transform: uppercase; }
 
 /* ============ 6. NUESTRA FIESTA ============ */
 .s--fiesta { background: var(--marfil); text-align: center; }
-.icono-anillos { width: 84px; height: auto; color: var(--dorado); margin: 0 auto 1.5rem; display: block; }
-.titulo-serif--grande { font-size: clamp(2.2rem, 8vw, 3rem); line-height: 1.15; }
+.icono-anillos { width: 88px; height: auto; color: var(--dorado); margin: 0 auto 1.5rem; display: block; }
+.titulo-serif--grande { font-size: clamp(2.4rem, 8.5vw, 3.2rem); line-height: 1.15; }
 .s--fiesta > .subtitulo { margin-bottom: 2.6rem; }
 
 .tarjeta-info {
-  max-width: 420px; margin: 0 auto 2.2rem;
+  max-width: 420px; margin: 0 auto 2.4rem;
   background: var(--crema);
   border: 1px solid rgba(176,141,79,0.25);
-  border-radius: 4px;
-  padding: 2.1rem 1.6rem 2.3rem;
+  border-radius: 6px;
+  padding: 2.8rem 1.6rem;
   box-shadow: 0 14px 30px -20px rgba(58,46,34,0.35);
+  text-align: center;
 }
 .tarjeta-info__titulo {
-  font-family: 'Playfair Display', serif; font-weight: 600; font-style: italic;
-  color: #2E2A24; font-size: 1.35rem; margin: 0 0 1.5em; position: relative; padding-bottom: 0.7em;
+  font-family: 'Playfair Display', serif; font-weight: 700; font-style: normal;
+  color: #2E2A24; font-size: 1.55rem; margin: 0 0 1.2em; position: relative; padding-bottom: 0.7em;
 }
 .tarjeta-info__titulo::after {
   content: ""; position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
   width: 34px; height: 1px; background: var(--dorado-claro);
 }
-.tarjeta-info__texto { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08rem; color: #4a4438; line-height: 1.6; max-width: 30ch; margin: 1.2rem auto 0; }
+/* solo resaltar LLUVIA DE SOBRES */
+.tarjeta-info__titulo--resaltado {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--dorado);
+  font-size: 1.7rem;
+}
+.tarjeta-info__texto { font-family: 'Jost', sans-serif; font-weight: 400; font-size: 1.12rem; color: #3d372d; line-height: 1.6; max-width: 32ch; margin: 1.2rem auto 0; }
+.tarjeta-info__texto--grande { font-size: 1.18rem; }
 
 .dresscode { display: flex; align-items: stretch; gap: 1.2rem; }
+/* dress code vertical equilibrado */
+.dresscode--vertical { flex-direction: column; gap: 0; align-items: center; }
+.dresscode__bloque { padding: 1rem 0.5rem; display: flex; flex-direction: column; align-items: center; max-width: 300px; margin: 0 auto; }
+.dresscode__bloque h4 { margin: 1.1em 0 0.4em; }
+.dresscode__bloque > p:first-of-type { margin: 0 0 0.9em; }
+.dresscode__div--horizontal { width: 55%; height: 1px; margin: 2.2rem auto; }
 .dresscode__div { width: 1px; background: rgba(176,141,79,0.25); margin: 0.3rem 0; }
 .dresscode__col { flex: 1; min-width: 0; }
 .dresscode__col h4 {
   font-family: 'Poppins', sans-serif; font-weight: 600; letter-spacing: 0.08em;
-  text-transform: uppercase; font-size: 0.72rem; color: var(--dorado); margin: 0 0 0.7em;
+  text-transform: uppercase; font-size: 0.85rem; color: var(--dorado); margin: 0 0 0.7em;
 }
-.dresscode__col > p:first-of-type { font-size: 0.88rem; line-height: 1.5; margin: 0 0 1em; min-height: 2.6em; }
-.paleta__aviso { font-size: 0.68rem; letter-spacing: 0.04em; color: var(--gris-claro); text-transform: uppercase; margin: 0 0 0.6em; }
-.dresscode__nota { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.82rem; color: var(--gris-claro); margin: 0.7em 0 0 !important; }
-.paleta { display: flex; justify-content: center; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.6rem; }
-.paleta__c { width: 20px; height: 20px; border-radius: 50%; display: inline-block; box-shadow: 0 0 0 1px rgba(58,46,34,0.15); }
+.dresscode__col > p:first-of-type { font-size: 1rem; line-height: 1.5; margin: 0 0 1em; min-height: 2.6em; }
+.dresscode__bloque h4 {
+  font-family: 'Poppins', sans-serif; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; font-size: 1rem; color: var(--dorado); margin: 0.8em 0 0.5em;
+}
+.dresscode__bloque p { font-size: 1.15rem; line-height: 1.55; margin: 0; color: #3d372d; }
+.dresscode__icono { width: 52px; height: 68px; color: var(--dorado); margin: 0 auto 0.2rem; display: block; }
+.paleta__aviso { font-size: 0.72rem; letter-spacing: 0.06em; color: var(--gris-claro); text-transform: uppercase; margin: 1em 0 0.7em; }
+.dresscode__nota { font-family: 'Jost', sans-serif; font-style: normal; font-weight: 500; font-size: 1rem; color: var(--gris-claro); margin: 0.7em 0 0 !important; }
+.dresscode__nota--fuerte { color: #2E2A24; font-weight: 600; font-size: 1.1rem; margin-top: 0.5em !important; }
+.paleta { display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin: 0 auto 0.6rem; max-width: 260px; }
+.paleta--grande { gap: 0.6rem; margin-bottom: 1rem; }
+.paleta__c { width: 24px; height: 24px; border-radius: 50%; display: inline-block; box-shadow: 0 0 0 1px rgba(58,46,34,0.15); }
+.paleta--grande .paleta__c { width: 30px; height: 30px; }
 .paleta__c--borde { box-shadow: 0 0 0 1px rgba(58,46,34,0.35); }
-.paleta__leyenda { font-size: 0.68rem; color: var(--gris-claro); letter-spacing: 0.01em; line-height: 1.4; margin: 0; }
+.paleta__leyenda { font-size: 0.82rem; color: var(--gris-claro); letter-spacing: 0.01em; line-height: 1.6; margin: 0 auto 0.8em; max-width: 24ch; text-align: center; }
 
-.icono-sobre { width: 84px; height: 67px; color: var(--dorado); margin: 0 auto; display: block; }
+.icono-sobre { width: 88px; height: 70px; color: var(--dorado); margin: 0.4rem auto 0; display: block; }
+
+/* Confirmar asistencia */
+.cupos { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.25rem; letter-spacing: 0.06em; color: #2E2A24; text-transform: uppercase; margin: 0.4rem 0 0; }
+.cupos__caja { display: inline-block; min-width: 64px; border-bottom: 2px solid var(--dorado-claro); margin-left: 0.4rem; }
 
 /* ============ 7. COMPARTE FOTOS (imagen completa, sin recortar) ============ */
 .s--comparte { padding: 0; line-height: 0; }
@@ -281,10 +349,13 @@ img { max-width: 100%; display: block; }
 .s--comparte.sin-foto { min-height: 40vh; background: linear-gradient(160deg, #6b5643, #4a3826); }
 .s--comparte.sin-foto .s--comparte__bg { display: none; }
 
-/* ============ 8. RECOMENDACIONES ============ */
+/* ============ 8. RECOMENDACIONES (serif elegante + sans legible) ============ */
 .s--recomendaciones { background: var(--marfil); text-align: center; }
-.icono-nino { width: 88px; height: auto; color: var(--dorado); margin: 0 auto 1.4rem; display: block; }
-.s--recomendaciones p:last-child { max-width: 30ch; margin: 0 auto; font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-style: italic; }
+.s--recomendaciones .titulo-serif { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-style: normal; letter-spacing: 0.02em; font-size: clamp(2.3rem, 8vw, 3.1rem); }
+.s--recomendaciones .subtitulo { font-family: 'Jost', sans-serif; font-size: 1.2rem; color: #4a4438; }
+.s--recomendaciones .subtitulo-h3 { font-family: 'Poppins', sans-serif; font-weight: 600; letter-spacing: 0.04em; font-size: 1.65rem; color: #2E2A24; }
+.icono-nino { width: 112px; height: auto; color: var(--dorado); margin: 0 auto 1.4rem; display: block; }
+.s--recomendaciones p:last-child { max-width: 34ch; margin: 0 auto; font-family: 'Jost', sans-serif; font-weight: 400; font-size: 1.25rem; line-height: 1.6; color: #3d372d; }
 
 /* ============ 9. CIERRE ============ */
 .s--cierre { padding: 0; }
@@ -296,13 +367,25 @@ img { max-width: 100%; display: block; }
   position: absolute; left: 0; right: 0; bottom: 0; height: 42%; z-index: 1;
   background: linear-gradient(0deg, rgba(20,14,8,0.78) 0%, rgba(20,14,8,0) 100%);
 }
+/* velo arriba para el texto superior */
+.s--cierre__velo--arriba {
+  top: 0; bottom: auto; height: 55%;
+  background: linear-gradient(180deg, rgba(20,14,8,0.82) 0%, rgba(20,14,8,0) 100%);
+}
 .s--cierre__texto {
   position: absolute; left: 50%; bottom: 2.2rem; transform: translateX(-50%); z-index: 2;
   width: 100%; color: #FFFDF8; text-align: center;
-  font-family: 'Sacramento', cursive; font-size: clamp(1.8rem, 7vw, 2.4rem); line-height: 1.3;
+  font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: clamp(1.6rem, 6vw, 2.3rem); line-height: 1.35;
+  letter-spacing: 0.1em; text-transform: uppercase;
   padding: 0 1.5rem; margin: 0;
-  text-shadow: 0 2px 14px rgba(0,0,0,0.4);
+  text-shadow: 0 2px 14px rgba(0,0,0,0.45);
 }
+/* texto arriba, mucho más grande */
+.s--cierre__texto--arriba {
+  top: 2.4rem; bottom: auto;
+  font-size: clamp(1.9rem, 8vw, 3rem);
+}
+.s--cierre__texto--arriba strong { display: block; font-weight: 700; letter-spacing: 0.08em; margin-top: 0.3em; }
 
 @media (min-width: 720px) {
   .dresscode { grid-template-columns: 1fr 1fr; max-width: 620px; }

@@ -1,5 +1,5 @@
-// Fecha y hora de la ceremonia: 20 de noviembre de 2026, 7:00 p.m. (Valledupar, Colombia UTC-5)
-const FECHA_BODA = new Date("2026-11-20T19:00:00-05:00");
+// Fecha y hora de la ceremonia: 20 de noviembre de 2026, 7:30 p.m. (Valledupar, Colombia UTC-5)
+const FECHA_BODA = new Date("2026-11-20T19:30:00-05:00");
 
 function actualizarContador() {
   const ahora = new Date();
