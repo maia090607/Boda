@@ -66,7 +66,7 @@ if ("IntersectionObserver" in window) {
   // arriba usa animación suave explícita.
   document.documentElement.style.scrollBehavior = "auto";
 
-  var VELOCIDAD = 55; // píxeles por segundo
+  var VELOCIDAD = 85; // píxeles por segundo
   var ESPERA_INICIO = 2.5; // segundos antes de empezar a bajar
   var ESPERA_FINAL = 2.5; // segundos quieto al llegar abajo
   var PAUSA_USUARIO = 7; // segundos de pausa tras tocar/deslizar
