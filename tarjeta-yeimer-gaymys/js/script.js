@@ -66,7 +66,7 @@ if ("IntersectionObserver" in window) {
   // arriba usa animación suave explícita.
   document.documentElement.style.scrollBehavior = "auto";
 
-  var VELOCIDAD = 85; // píxeles por segundo
+  var VELOCIDAD = 85; // píxeles por segundo (base cuando no hay música)
   var ESPERA_INICIO = 2.5; // segundos antes de empezar a bajar
   var ESPERA_FINAL = 2.5; // segundos quieto al llegar abajo
   var PAUSA_USUARIO = 7; // segundos de pausa tras tocar/deslizar
@@ -74,6 +74,7 @@ if ("IntersectionObserver" in window) {
   var regresando = false;
   var ultimaInteraccion = 0;
   var ultimoTiempo = null;
+  var velSuave = VELOCIDAD; // velocidad al ritmo de la música (suavizada)
 
   ["wheel", "touchstart", "touchmove", "mousedown", "keydown"].forEach(function (ev) {
     window.addEventListener(ev, function () {
@@ -101,7 +102,17 @@ if ("IntersectionObserver" in window) {
             }, 1500);
           }, ESPERA_FINAL * 1000);
         } else {
-          window.scrollBy(0, VELOCIDAD * dt);
+          // Al ritmo de la música: la velocidad sigue la energía
+          // de la canción (graves). Sin música, velocidad base.
+          var energia = -1;
+          if (window.__energiaMusica) {
+            try { energia = window.__energiaMusica(); } catch (e) { energia = -1; }
+          }
+          var objetivo = (typeof energia === "number" && energia >= 0)
+            ? (40 + energia * 150)
+            : VELOCIDAD;
+          velSuave += (objetivo - velSuave) * Math.min(1, dt * 3);
+          window.scrollBy(0, velSuave * dt);
         }
       }
     }
@@ -118,6 +129,45 @@ if ("IntersectionObserver" in window) {
   if (!audio || !btn) return;
   audio.loop = true;
   audio.volume = 1;
+
+  // Analizador de energía (graves) para bajar al ritmo de la música.
+  // Se crea con gesto del usuario (requisito del navegador).
+  var ctxAudio = null, analizador = null, datosFrec = null;
+  function initAnalizador() {
+    if (ctxAudio || analizador) return;
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return;
+    try {
+      ctxAudio = new AC();
+      var src = ctxAudio.createMediaElementSource(audio);
+      analizador = ctxAudio.createAnalyser();
+      analizador.fftSize = 256;
+      analizador.smoothingTimeConstant = 0.78;
+      src.connect(analizador);
+      analizador.connect(ctxAudio.destination);
+      datosFrec = new Uint8Array(analizador.frequencyBinCount);
+    } catch (err) {
+      ctxAudio = null;
+      analizador = null;
+      datosFrec = null;
+    }
+  }
+  // Energía 0..1 de la canción. -1 si no está sonando.
+  window.__energiaMusica = function () {
+    if (!audio || audio.paused) return -1;
+    if (!analizador || !datosFrec) return -1;
+    try {
+      if (ctxAudio && ctxAudio.state === "suspended") return -1;
+      analizador.getByteFrequencyData(datosFrec);
+      var n = 24, suma = 0, i;
+      if (datosFrec.length < n) n = datosFrec.length;
+      for (i = 0; i < n; i++) suma += datosFrec[i];
+      var energia = suma / (n * 255);
+      if (!(energia >= 0)) return -1;
+      if (energia > 1) energia = 1;
+      return energia;
+    } catch (e) { return -1; }
+  };
 
   function sonar() {
     btn.classList.add("sonando");
@@ -136,6 +186,12 @@ if ("IntersectionObserver" in window) {
   function encender(e) {
     // el botón tiene su propio control: no auto-encender desde él
     if (e && e.target && (e.target === btn || btn.contains(e.target))) return;
+    if (e) {
+      initAnalizador();
+      if (ctxAudio && ctxAudio.state === "suspended") {
+        try { ctxAudio.resume().catch(function () {}); } catch (err2) {}
+      }
+    }
     var p = null;
     try { p = audio.play(); } catch (err) { return; }
     if (p && p.then) {
@@ -149,6 +205,10 @@ if ("IntersectionObserver" in window) {
   btn.addEventListener("click", function (e) {
     e.stopPropagation();
     if (audio.paused) {
+      initAnalizador();
+      if (ctxAudio && ctxAudio.state === "suspended") {
+        try { ctxAudio.resume().catch(function () {}); } catch (err2) {}
+      }
       var p = null;
       try { p = audio.play(); } catch (err) { return; }
       if (p && p.then) { p.then(sonar).catch(function () {}); }
