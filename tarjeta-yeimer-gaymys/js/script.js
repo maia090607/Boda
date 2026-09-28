@@ -83,11 +83,12 @@ if ("IntersectionObserver" in window) {
     }, { passive: true });
   });
 
-  // Primer toque: arranca el recorrido (sin castigar con la pausa de 7s)
+  // Primer toque: arranca el recorrido al instante, el contenido
+  // empieza a subir de una vez (sin castigar con la pausa de 7s)
   function arrancar() {
     if (iniciado) return;
     iniciado = true;
-    espera = 1.2;
+    espera = 0;
     ultimaInteraccion = Date.now() - PAUSA_USUARIO * 1000 - 1000;
     ["pointerdown", "touchstart", "click", "keydown"].forEach(function (ev) {
       window.removeEventListener(ev, arrancar);
