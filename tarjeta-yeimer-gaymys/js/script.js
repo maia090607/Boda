@@ -110,3 +110,68 @@ if ("IntersectionObserver" in window) {
 
   requestAnimationFrame(paso);
 })();
+
+// Música de fondo: suena en loop mientras baja la tarjeta
+(function () {
+  var audio = document.getElementById("musica");
+  var btn = document.getElementById("btn-musica");
+  if (!audio || !btn) return;
+  audio.loop = true;
+  audio.volume = 1;
+
+  function sonar() {
+    btn.classList.add("sonando");
+    btn.textContent = "♫";
+  }
+  function callar() {
+    btn.classList.remove("sonando");
+    btn.textContent = "♪";
+  }
+  function detach() {
+    window.removeEventListener("pointerdown", encender);
+    window.removeEventListener("touchstart", encender);
+    window.removeEventListener("click", encender);
+    window.removeEventListener("keydown", encender);
+  }
+  function encender(e) {
+    // el botón tiene su propio control: no auto-encender desde él
+    if (e && e.target && (e.target === btn || btn.contains(e.target))) return;
+    var p = null;
+    try { p = audio.play(); } catch (err) { return; }
+    if (p && p.then) {
+      p.then(function () { sonar(); detach(); }).catch(function () {});
+    } else {
+      sonar();
+      detach();
+    }
+  }
+
+  btn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    if (audio.paused) {
+      var p = null;
+      try { p = audio.play(); } catch (err) { return; }
+      if (p && p.then) { p.then(sonar).catch(function () {}); }
+      else { sonar(); }
+      detach();
+    } else {
+      audio.pause();
+      callar();
+    }
+  });
+
+  // intento inmediato + primera interacción: queda sonando en loop
+  // mientras la tarjeta baja sola
+  encender();
+  window.addEventListener("pointerdown", encender, { passive: true });
+  window.addEventListener("touchstart", encender, { passive: true });
+  window.addEventListener("click", encender);
+  window.addEventListener("keydown", encender);
+
+  // si el sistema la pausa al ocultar la pestaña, reanudar al volver
+  document.addEventListener("visibilitychange", function () {
+    if (!document.hidden && btn.classList.contains("sonando") && audio.paused) {
+      try { audio.play().catch(function () {}); } catch (err) {}
+    }
+  });
+})();
