@@ -66,15 +66,16 @@ if ("IntersectionObserver" in window) {
   // arriba usa animación suave explícita.
   document.documentElement.style.scrollBehavior = "auto";
 
-  var VELOCIDAD = 85; // píxeles por segundo (base cuando no hay música)
-  var ESPERA_INICIO = 2.5; // segundos antes de empezar a bajar
+  var VELOCIDAD = 60; // píxeles por segundo (base cuando no hay música)
+  var ESPERA_INICIO = 2.5; // segundos quieto al volver arriba en cada ciclo
   var ESPERA_FINAL = 2.5; // segundos quieto al llegar abajo
   var PAUSA_USUARIO = 7; // segundos de pausa tras tocar/deslizar
-  var espera = ESPERA_INICIO;
+  var espera = 1.2; // primera bajada arranca rápido tras el primer toque
   var regresando = false;
   var ultimaInteraccion = 0;
   var ultimoTiempo = null;
   var velSuave = VELOCIDAD; // velocidad al ritmo de la música (suavizada)
+  var iniciado = false; // la tarjeta empieza a moverse al primer toque
 
   ["wheel", "touchstart", "touchmove", "mousedown", "keydown"].forEach(function (ev) {
     window.addEventListener(ev, function () {
@@ -82,10 +83,29 @@ if ("IntersectionObserver" in window) {
     }, { passive: true });
   });
 
+  // Primer toque: arranca el recorrido (sin castigar con la pausa de 7s)
+  function arrancar() {
+    if (iniciado) return;
+    iniciado = true;
+    espera = 1.2;
+    ultimaInteraccion = Date.now() - PAUSA_USUARIO * 1000 - 1000;
+    ["pointerdown", "touchstart", "click", "keydown"].forEach(function (ev) {
+      window.removeEventListener(ev, arrancar);
+    });
+  }
+  ["pointerdown", "touchstart", "click", "keydown"].forEach(function (ev) {
+    window.addEventListener(ev, arrancar, { passive: true });
+  });
+
   function paso(tiempo) {
     if (ultimoTiempo === null) ultimoTiempo = tiempo;
     var dt = Math.min((tiempo - ultimoTiempo) / 1000, 0.1);
     ultimoTiempo = tiempo;
+
+    if (!iniciado) {
+      requestAnimationFrame(paso);
+      return;
+    }
 
     if (espera > 0) {
       espera -= dt;
@@ -109,7 +129,7 @@ if ("IntersectionObserver" in window) {
             try { energia = window.__energiaMusica(); } catch (e) { energia = -1; }
           }
           var objetivo = (typeof energia === "number" && energia >= 0)
-            ? (40 + energia * 150)
+            ? (30 + energia * 100)
             : VELOCIDAD;
           velSuave += (objetivo - velSuave) * Math.min(1, dt * 3);
           window.scrollBy(0, velSuave * dt);
