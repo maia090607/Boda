@@ -92,7 +92,7 @@ img { max-width: 100%; display: block; }
   line-height: 1.2;
 }
 .s--portada__spacer { flex: 1; min-height: 0; }
-.s--portada__spacer--arriba { flex: 2.8; min-height: 38svh; }
+.s--portada__spacer--arriba { flex: 1; min-height: 16svh; }
 /* Nombres portada: dos líneas, centrados, grandes */
 .s--portada__nombres {
   font-family: 'Cormorant Garamond', serif;
@@ -422,6 +422,7 @@ img { max-width: 100%; display: block; }
 .s--recomendaciones .subtitulo-h3 { font-family: 'Poppins', sans-serif; font-weight: 600; letter-spacing: 0.04em; font-size: 1.65rem; color: #2E2A24; }
 .icono-nino { width: 180px; height: auto; color: var(--dorado); margin: 0 auto 1.4rem; display: block; }
 .icono-nino--durmiendo { width: min(72%, 260px); height: auto; }
+.icono-nino--angel { width: min(62%, 220px); height: auto; }
 .s--recomendaciones p:last-child { max-width: 34ch; margin: 0 auto; font-family: 'Jost', sans-serif; font-weight: 400; font-size: 1.25rem; line-height: 1.6; color: #3d372d; }
 
 /* ============ 9. CIERRE ============ */
@@ -505,6 +506,7 @@ img { max-width: 100%; display: block; }
   font-size: 0.45em; letter-spacing: 0.4em; text-indent: 0.4em; color: var(--dorado-claro); opacity: 0.8; white-space: nowrap;
 }
 .lugar { padding-bottom: 1.2rem; }
+.lugar > .lugar__link { display: table; margin-left: auto; margin-right: auto; margin-top: 1.9rem; }
 
 @media (min-width: 720px) {
   .dresscode { grid-template-columns: 1fr 1fr; max-width: 620px; }
