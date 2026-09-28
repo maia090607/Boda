@@ -61,7 +61,12 @@ if ("IntersectionObserver" in window) {
 (function () {
   if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  var VELOCIDAD = 45; // píxeles por segundo
+  // El CSS de la página usa scroll suave, pero eso frena el avance
+  // cuadro por cuadro: se fuerza scroll instantáneo y solo el regreso
+  // arriba usa animación suave explícita.
+  document.documentElement.style.scrollBehavior = "auto";
+
+  var VELOCIDAD = 55; // píxeles por segundo
   var ESPERA_INICIO = 2.5; // segundos antes de empezar a bajar
   var ESPERA_FINAL = 2.5; // segundos quieto al llegar abajo
   var PAUSA_USUARIO = 7; // segundos de pausa tras tocar/deslizar
