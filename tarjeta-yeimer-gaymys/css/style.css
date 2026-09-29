@@ -416,7 +416,7 @@ img { max-width: 100%; display: block; }
 }
 .tarjeta-info--confirma .cupos {
   display: inline-flex;
-  align-items: center; /* Centra verticalmente el texto y el número entre sí */
+  align-items: baseline; /* Alinea los textos en su línea base natural */
   justify-content: center;
   font-family: 'Cormorant Garamond', serif;
   font-weight: 700;
@@ -432,9 +432,8 @@ img { max-width: 100%; display: block; }
   color: var(--dorado);
   margin-left: 0.25rem;
   line-height: 1;
-  display: inline-flex;
-  align-items: center; /* Asegura que el contenido interno del número también esté alineado */
-  transform: translateY(0); /* Eliminamos desviaciones para que el flexbox haga el trabajo exacto */
+  /* Ajuste milimétrico hacia arriba para compensar la tipografía */
+  transform: translateY(-0.1rem); 
 }
 
 .tarjeta-info--confirma .tarjeta-info__texto--confirma {
