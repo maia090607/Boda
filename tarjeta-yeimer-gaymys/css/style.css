@@ -585,15 +585,27 @@ img { max-width: 100%; display: block; }
 /* Columna de 430px centrada sobre fondo crema liso. Solo CSS: no toca HTML ni JS. */
 @media (min-width: 760px) {
   body {
-    background: #EDE4CF; /* crema un punto más oscuro que la tarjeta, para enmarcarla */
+    background: #EDE4CF; /* base crema por si la foto tarda en cargar */
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+  /* foto difuminada detrás de la columna */
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background: url("../fotos/foto1.jpeg") center 30% / cover no-repeat;
+    filter: blur(28px); transform: scale(1.2); opacity: 0.35;
+  }
+  /* velo crema encima de la foto para que quede suave */
+  body::after {
+    content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background: rgba(251,247,239,0.72);
   }
   .s {
     width: min(430px, 100%);
     margin-left: auto;
     margin-right: auto;
+    position: relative; z-index: 1;
     /* sombra solo lateral para que las hojas se vean como una sola columna */
     box-shadow: -24px 0 40px -28px rgba(58,46,34,0.35), 24px 0 40px -28px rgba(58,46,34,0.35);
   }
