@@ -1,6 +1,18 @@
 // Fecha y hora de la ceremonia: 20 de noviembre de 2026, 7:30 p.m. (Valledupar, Colombia UTC-5)
 const FECHA_BODA = new Date("2026-11-20T19:30:00-05:00");
 
+// Cupos por link: ?cupos=1, ?cupos=2 o ?cupos=4 rellena el recuadro.
+// Sin parámetro, queda vacío como antes.
+(function () {
+  var caja = document.querySelector(".cupos__caja");
+  if (!caja) return;
+  var n = null;
+  try {
+    n = new URLSearchParams(window.location.search).get("cupos");
+  } catch (e) { n = null; }
+  if (n === "1" || n === "2" || n === "4") caja.textContent = n;
+})();
+
 function actualizarContador() {
   const ahora = new Date();
   const diferencia = FECHA_BODA - ahora;
