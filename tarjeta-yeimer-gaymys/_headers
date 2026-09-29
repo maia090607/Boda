@@ -1,0 +1,16 @@
+# Cloudflare Pages: cache agresivo para invitaciones con muchas aperturas.
+# El HTML no se cachea agresivo para que ?cupos=1/2/4 y js?v=5 siempre entren.
+/index.html
+  Cache-Control: public, max-age=300
+/
+  Cache-Control: public, max-age=300
+/musica/*
+  Cache-Control: public, max-age=31536000, immutable
+/fotos/*
+  Cache-Control: public, max-age=86400
+/icono/*
+  Cache-Control: public, max-age=86400
+/css/*
+  Cache-Control: public, max-age=3600
+/js/*
+  Cache-Control: public, max-age=3600
