@@ -420,7 +420,7 @@ img { max-width: 100%; display: block; }
   text-transform: uppercase;
 }
 .tarjeta-info--confirma .cupos { display: inline-flex; align-items: center; justify-content: center; }
-.tarjeta-info--confirma .cupos__caja { border-bottom: none; min-width: 0; font-size: clamp(1.7rem, 7vw, 2.3rem); font-weight: 700; color: var(--dorado); margin-left: 0.25rem; line-height: 1; }
+.tarjeta-info--confirma .cupos__caja { border-bottom: none; min-width: 0; font-size: clamp(1.7rem, 7vw, 2.3rem); font-weight: 700; color: var(--dorado); margin-left: 0.25rem; line-height: 1;transform: translateY(-0.2rem); }
 .tarjeta-info--confirma .tarjeta-info__texto--confirma {
   font-family: 'Cormorant Garamond', serif;
   font-weight: 600;
