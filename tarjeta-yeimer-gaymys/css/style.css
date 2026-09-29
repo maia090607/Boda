@@ -384,12 +384,12 @@ img { max-width: 100%; display: block; }
 .paleta__aviso { font-size: 0.95rem; letter-spacing: 0.02em; color: #3d372d; text-transform: none; margin: 1em auto 0.7em; line-height: 1.6; max-width: 28ch; text-align: center; font-family: 'Jost', sans-serif; }
 .dresscode__nota { font-family: 'Jost', sans-serif; font-style: normal; font-weight: 500; font-size: 1rem; color: var(--gris-claro); margin: 0.7em 0 0 !important; }
 .dresscode__nota--fuerte { color: #2E2A24; font-weight: 600; font-size: 1.1rem; margin-top: 0.5em !important; }
-/* dress code con tipografía de la cita bíblica */
-.dresscode__bloque h4 { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.4rem; }
-.dresscode__bloque p { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.32rem; }
-.paleta__aviso { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.2rem; }
+/* dress code con tipografía de la cita bíblica (idéntica) */
+.dresscode__bloque h4 { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-style: normal; font-size: 1.4rem; }
+.dresscode__bloque p { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-style: italic; font-size: 1.32rem; }
+.paleta__aviso { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-style: italic; font-size: 1.2rem; }
 .paleta__aviso strong { font-weight: 700; }
-.dresscode__nota, .dresscode__nota--fuerte { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 700; }
+.dresscode__nota, .dresscode__nota--fuerte { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.25rem; font-weight: 700; }
 .paleta { display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin: 0 auto 0.6rem; max-width: 260px; }
 .paleta--grande { gap: 0.6rem; margin-bottom: 1rem; }
 .paleta__c { width: 24px; height: 24px; border-radius: 50%; display: inline-block; box-shadow: 0 0 0 1px rgba(58,46,34,0.15); }
