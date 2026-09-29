@@ -158,53 +158,19 @@ if ("IntersectionObserver" in window) {
   try { audio.load(); } catch (err0) {}
   // Si el toque llegó antes de que hubiera datos, reintentar en cuanto cargue
   var quiereSonar = false;
+  function reproducir() {
+    var r = null;
+    try { r = audio.play(); } catch (errA) { return; }
+    if (r && r.then) { r.then(sonar).catch(function () {}); }
+    else { sonar(); }
+  }
   audio.addEventListener("canplay", function () {
-    if (quiereSonar && audio.paused) {
-      try {
-        var r = audio.play();
-        if (r && r.then) { r.then(sonar).catch(function () {}); }
-      } catch (err1) {}
-    }
+    if (quiereSonar && audio.paused) reproducir();
   });
 
-  // Analizador de energía (graves) para bajar al ritmo de la música.
-  // Se crea con gesto del usuario (requisito del navegador).
-  var ctxAudio = null, analizador = null, datosFrec = null;
-  function initAnalizador() {
-    if (ctxAudio || analizador) return;
-    var AC = window.AudioContext || window.webkitAudioContext;
-    if (!AC) return;
-    try {
-      ctxAudio = new AC();
-      var src = ctxAudio.createMediaElementSource(audio);
-      analizador = ctxAudio.createAnalyser();
-      analizador.fftSize = 256;
-      analizador.smoothingTimeConstant = 0.78;
-      src.connect(analizador);
-      analizador.connect(ctxAudio.destination);
-      datosFrec = new Uint8Array(analizador.frequencyBinCount);
-    } catch (err) {
-      ctxAudio = null;
-      analizador = null;
-      datosFrec = null;
-    }
-  }
-  // Energía 0..1 de la canción. -1 si no está sonando.
-  window.__energiaMusica = function () {
-    if (!audio || audio.paused) return -1;
-    if (!analizador || !datosFrec) return -1;
-    try {
-      if (ctxAudio && ctxAudio.state === "suspended") return -1;
-      analizador.getByteFrequencyData(datosFrec);
-      var n = 24, suma = 0, i;
-      if (datosFrec.length < n) n = datosFrec.length;
-      for (i = 0; i < n; i++) suma += datosFrec[i];
-      var energia = suma / (n * 255);
-      if (!(energia >= 0)) return -1;
-      if (energia > 1) energia = 1;
-      return energia;
-    } catch (e) { return -1; }
-  };
+  // Sin procesador de audio: el elemento suena directo a la salida,
+  // así no se traba en ningún teléfono. Velocidad de scroll constante.
+  window.__energiaMusica = function () { return -1; };
 
   function sonar() {
     btn.classList.add("sonando");
@@ -214,64 +180,36 @@ if ("IntersectionObserver" in window) {
     btn.classList.remove("sonando");
     btn.textContent = "♪";
   }
-  function detach() {
-    window.removeEventListener("pointerdown", encender);
-    window.removeEventListener("touchstart", encender);
-    window.removeEventListener("click", encender);
-    window.removeEventListener("keydown", encender);
-  }
-  function encender(e) {
-    // el botón tiene su propio control: no auto-encender desde él
+  // Tocar cualquier parte de la pantalla la enciende (una sola vez)
+  function alTocar(e) {
     if (e && e.target && (e.target === btn || btn.contains(e.target))) return;
     quiereSonar = true;
-    if (e) {
-      initAnalizador();
-      if (ctxAudio && ctxAudio.state === "suspended") {
-        try { ctxAudio.resume().catch(function () {}); } catch (err2) {}
-      }
-    }
-    var p = null;
-    try { p = audio.play(); } catch (err) { return; }
-    if (p && p.then) {
-      p.then(function () { sonar(); detach(); }).catch(function () {});
-    } else {
-      sonar();
-      detach();
-    }
+    reproducir();
+    window.removeEventListener("pointerdown", alTocar);
+    window.removeEventListener("touchstart", alTocar);
+    window.removeEventListener("click", alTocar);
+    window.removeEventListener("keydown", alTocar);
   }
+  window.addEventListener("pointerdown", alTocar, { passive: true });
+  window.addEventListener("touchstart", alTocar, { passive: true });
+  window.addEventListener("click", alTocar);
+  window.addEventListener("keydown", alTocar);
 
+  // Botón: si está sonando se para, si no está sonando se reproduce
   btn.addEventListener("click", function (e) {
     e.stopPropagation();
     if (audio.paused) {
       quiereSonar = true;
-      initAnalizador();
-      if (ctxAudio && ctxAudio.state === "suspended") {
-        try { ctxAudio.resume().catch(function () {}); } catch (err2) {}
-      }
-      var p = null;
-      try { p = audio.play(); } catch (err) { return; }
-      if (p && p.then) { p.then(sonar).catch(function () {}); }
-      else { sonar(); }
-      detach();
+      reproducir();
     } else {
       quiereSonar = false;
-      audio.pause();
+      try { audio.pause(); } catch (err2) {}
       callar();
     }
   });
 
-  // intento inmediato + primera interacción: queda sonando en loop
-  // mientras la tarjeta baja sola
-  encender();
-  window.addEventListener("pointerdown", encender, { passive: true });
-  window.addEventListener("touchstart", encender, { passive: true });
-  window.addEventListener("click", encender);
-  window.addEventListener("keydown", encender);
-
   // si el sistema la pausa al ocultar la pestaña, reanudar al volver
   document.addEventListener("visibilitychange", function () {
-    if (!document.hidden && btn.classList.contains("sonando") && audio.paused) {
-      try { audio.play().catch(function () {}); } catch (err) {}
-    }
+    if (!document.hidden && quiereSonar && audio.paused) reproducir();
   });
 })();
