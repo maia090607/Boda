@@ -1,12 +1,23 @@
 // Fecha y hora de la ceremonia: 20 de noviembre de 2026, 7:30 p.m. (Valledupar, Colombia UTC-5)
 const FECHA_BODA = new Date("2026-11-20T19:30:00-05:00");
 
-// Cupos por link en CUALQUIER dominio: ?cupos=1/2/4, /1 /2 /4 o #1 #2 #4.
+// Cupos automático: ?cupos=1/2/4 manda; si no hay query,
+// el número sale del dominio (ej. boda-1, boda-2, boda-4so -> 1, 2, 4).
 // Sin dato válido, queda vacío como antes.
 (function () {
+  function cuposPorDominio(host) {
+    host = String(host || "").toLowerCase();
+    var m = host.match(/cupos?[-_.]?([124])/);
+    if (m) return m[1];
+    m = host.match(/(?:^|[-_.])([124])(?:[-_.]|$)/);
+    if (m) return m[1];
+    m = host.match(/-([124])/);
+    if (m) return m[1];
+    return null;
+  }
   function obtenerCupos() {
     var v = null;
-    // 1) Query: ?cupos= ?cupo= ?c= ?invitados= ?pases=
+    // 1) Query (prioridad para forzar): ?cupos= ?cupo= ?c= ?invitados= ?pases=
     try {
       var qs = new URLSearchParams(window.location.search);
       var claves = ["cupos", "cupo", "c", "invitados", "pases"];
@@ -15,12 +26,17 @@ const FECHA_BODA = new Date("2026-11-20T19:30:00-05:00");
         if (v === "1" || v === "2" || v === "4") return v;
       }
     } catch (e) {}
-    // 2) Ruta: /1 /2 /4 (ej. dominio.vercel.app/2)
+    // 2) Dominio: boda-1... -> 1, boda-2... -> 2, boda-4so... -> 4
+    try {
+      var d = cuposPorDominio(window.location.hostname);
+      if (d) return d;
+    } catch (e4) {}
+    // 3) Ruta: /1 /2 /4
     try {
       var m = window.location.pathname.match(/(?:^|\/)([124])(?:\/|$)/);
       if (m) return m[1];
     } catch (e2) {}
-    // 3) Hash: #1 #2 #4 (ej. dominio.vercel.app#2)
+    // 4) Hash: #1 #2 #4
     try {
       var h = window.location.hash.match(/([124])/);
       if (h) return h[1];
