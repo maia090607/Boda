@@ -426,7 +426,7 @@ img { max-width: 100%; display: block; }
 .tarjeta-info--confirma .cupos__caja {
   border-bottom: none;
   min-width: 0;
-  font-size: clamp(1.5rem, 6vw, 1.9rem); 
+  font-size: clamp(2.2rem, 8vw, 2.8rem); 
   font-weight: 600; 
   font-family: 'Cormorant Garamond', serif; 
   color: var(--dorado);
