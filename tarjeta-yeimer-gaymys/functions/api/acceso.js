@@ -1,9 +1,12 @@
-// GET /api/acceso?t=TOKEN
-// Control de reenvíos: cuenta dispositivos por link y dice si ya se
-// llegó al tope. NUNCA bloquea la vista: siempre responde 200 y el
-// front decide si muestra la cinta "Esta tarjeta es solo para ti".
-// Requiere binding KV: INVITACIONES (una por cada proyecto Pages).
-// Claves: "t:<TOKEN>" -> {"cupos":1|2|4,"tope":2,"dispositivos":[]}
+// GET /api/acceso[?t=TOKEN_LEGADO]
+// Control de reenvíos por DOMINIO: cuenta dispositivos por cada dominio
+// (host:boda-1.pages.dev, etc.) y dice si ya se llegó al tope.
+// NUNCA bloquea la vista: siempre responde 200 y el front decide si
+// muestra la cinta "Esta tarjeta es solo para ti".
+// Requiere binding KV: INVITACIONES (en cada proyecto Pages).
+// Las claves host:* se crean solas en la primera visita:
+//   "host:<dominio>" -> {"cupos":1|2|4,"tope":2,"dispositivos":[]}
+// Los links viejos con ?t=TOKEN siguen funcionando igual.
 
 function json(data, did, status) {
   var h = { "Content-Type": "application/json", "Cache-Control": "no-store" };
@@ -19,24 +22,47 @@ function nuevoDid() {
   return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
 
+function cuposPorDominio(host) {
+  host = String(host || "").toLowerCase();
+  var m = host.match(/cupos?[-_.]?([124])/)
+    || host.match(/(?:^|[-_.])([124])(?:[-_.]|$)/)
+    || host.match(/-([124])/);
+  return m ? Number(m[1]) : null;
+}
+
 export async function onRequestGet(context) {
   var url = new URL(context.request.url);
   var t = (url.searchParams.get("t") || "").trim();
-
-  // Token inválido: el front usa su lógica normal (por dominio/query).
-  if (!/^[A-Za-z0-9_-]{8,64}$/.test(t)) return json({ ok: false });
+  var host = (url.hostname || "").toLowerCase();
 
   // Sin KV enlazado: no romper la tarjeta, solo no controlar.
   if (!context.env || !context.env.INVITACIONES) return json({ ok: false });
 
-  var key = "t:" + t;
-  var raw;
+  var KV = context.env.INVITACIONES;
+  var key;
+  var auto = null; // datos para crear la clave si no existe (modo dominio)
+
+  if (/^[A-Za-z0-9_-]{8,64}$/.test(t)) {
+    key = "t:" + t; // compatibilidad con links viejos
+  } else if (host) {
+    key = "host:" + host;
+    var c = cuposPorDominio(host);
+    if (!c) return json({ ok: false });
+    auto = { cupos: c, tope: 2, dispositivos: [] };
+  } else {
+    return json({ ok: false });
+  }
+
+  var raw = null;
   try {
-    raw = await context.env.INVITACIONES.get(key);
+    raw = await KV.get(key);
   } catch (e) {
     return json({ ok: false });
   }
-  if (!raw) return json({ ok: false });
+  if (!raw) {
+    if (!auto) return json({ ok: false }); // token desconocido: sin control
+    raw = JSON.stringify(auto); // primera visita del dominio: se crea solo
+  }
 
   var data;
   try {
@@ -66,7 +92,7 @@ export async function onRequestGet(context) {
     devs.push(did);
     data.dispositivos = devs.slice(-10); // guarda los últimos 10
     try {
-      await context.env.INVITACIONES.put(key, JSON.stringify(data));
+      await KV.put(key, JSON.stringify(data));
     } catch (e4) {}
   }
 

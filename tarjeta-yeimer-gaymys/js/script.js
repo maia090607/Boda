@@ -49,14 +49,17 @@ const FECHA_BODA = new Date("2026-11-20T19:30:00-05:00");
   for (var j = 0; j < cajas.length; j++) cajas[j].textContent = n;
 })();
 
-// Control de reenvíos: ?t=TOKEN consulta /api/acceso (nunca bloquea la vista).
-// - Pone los cupos que diga el servidor y muestra la cinta si ya se llegó al tope.
-// - Sin ?t= válido o si el servidor falla, la tarjeta funciona como siempre.
+// Control de reenvíos: consulta /api/acceso (nunca bloquea la vista).
+// - El servidor cuenta por dominio: 1er dispositivo sin cinta,
+//   del 2do en adelante muestra "Esta tarjeta es solo para ti".
+// - Pone los cupos que diga el servidor; si falla, todo sigue como siempre.
 (function () {
-  var t = null;
-  try { t = new URLSearchParams(window.location.search).get("t"); } catch (e) { t = null; }
-  if (!t || !/^[A-Za-z0-9_-]{8,64}$/.test(t)) return;
-  fetch("/api/acceso?t=" + encodeURIComponent(t), { credentials: "same-origin" })
+  var qs = "";
+  try {
+    var t = new URLSearchParams(window.location.search).get("t");
+    if (t && /^[A-Za-z0-9_-]{8,64}$/.test(t)) qs = "?t=" + encodeURIComponent(t);
+  } catch (e) {}
+  fetch("/api/acceso" + qs, { credentials: "same-origin" })
     .then(function (r) { return r.json(); })
     .then(function (d) {
       if (!d || !d.ok) return;
