@@ -154,6 +154,8 @@ if ("IntersectionObserver" in window) {
   if (!audio || !btn) return;
   audio.loop = true;
   audio.volume = 1;
+  audio.preload = "auto";
+  try { audio.load(); } catch (err0) {}
 
   // Analizador de energía (graves) para bajar al ritmo de la música.
   // Se crea con gesto del usuario (requisito del navegador).
