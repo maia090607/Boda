@@ -275,7 +275,8 @@ img { max-width: 100%; display: block; }
 }
 .icono { width: 34px; height: 34px; color: var(--dorado); display: block; }
 .icono-img { width: 72%; height: 72%; object-fit: contain; mix-blend-mode: multiply; display: block; }
-.icono-img--grande { width: 76%; height: 76%; }
+.icono-img--grande { width: 76%; height: 76%; object-position: center; }
+.icono-img--xl { width: 86%; height: 86%; object-fit: contain; object-position: center; mix-blend-mode: multiply; display: block; margin: auto; }
 .icono-marco { overflow: hidden; }
 .linea-tiempo__punto { width: 10px; height: 10px; border-radius: 50%; background: var(--dorado-claro); margin: 0 auto; }
 /* Horas en serif + descripción pequeña */
