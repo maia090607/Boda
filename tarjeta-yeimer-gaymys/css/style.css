@@ -585,16 +585,10 @@ img { max-width: 100%; display: block; }
 /* Columna de 430px centrada sobre fondo crema liso. Solo CSS: no toca HTML ni JS. */
 @media (min-width: 760px) {
   body {
-    background: #EDE4CF; /* base crema por si la foto tarda en cargar */
+    background: #EDE4CF; /* crema un punto más oscuro que la tarjeta, para enmarcarla */
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  /* foto difuminada a pantalla completa detrás de la columna */
-  body::before {
-    content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
-    background: url("../fotos/foto5.jpeg") center 30% / cover no-repeat;
-    filter: blur(28px); transform: scale(1.2);
   }
   .s {
     width: min(430px, 100%);
