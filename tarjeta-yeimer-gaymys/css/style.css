@@ -160,15 +160,17 @@ img { max-width: 100%; display: block; }
 
 /* ============ 2. NOS CASAMOS ============ */
 .s--nos-casamos { background: var(--marfil); text-align: center; padding-bottom: 3rem; }
-/* sección promesa: serif elegante legible */
+/* sección promesa: cursiva elegante y legible, centrada */
 .texto-legible {
-  font-family: 'Jost', sans-serif;
-  font-weight: 400;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 600;
   color: #3d372d;
-  font-size: clamp(1.15rem, 4.6vw, 1.4rem);
-  line-height: 1.65;
-  max-width: 38ch;
+  font-size: clamp(1.3rem, 5.2vw, 1.55rem);
+  line-height: 1.6;
+  max-width: 36ch;
   margin: 0 auto 3rem;
+  text-align: center;
 }
 /* títulos: Playfair elegante y legible */
 .script-dorado {
@@ -229,8 +231,9 @@ img { max-width: 100%; display: block; }
 .lugar__hora { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.35rem; letter-spacing: 0.12em; color: var(--dorado); margin: 0.5em 0 0.9em; }
 /* hora decorada: pastilla dorada con doble marco y brillo */
 .lugar__hora--decorada {
-  display: inline-flex; align-items: center; gap: 0.6em;
-  font-size: clamp(1.4rem, 5.5vw, 1.7rem);
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.6em;
+  text-align: center;
+  font-size: clamp(1.15rem, 4.6vw, 1.4rem);
   padding: 0.45em 1.1em;
   background: linear-gradient(180deg, #FFFDF8, #F9F0DC);
   border: 1.5px solid var(--dorado-claro);
@@ -241,7 +244,8 @@ img { max-width: 100%; display: block; }
 }
 .lugar__hora--decorada span { font-size: 0.8em; color: var(--dorado-claro); }
 .lugar__link {
-  display: inline-block; margin-top: 0.6rem; font-size: 0.92rem; letter-spacing: 0.04em;
+  display: inline-block; margin-top: 0.6rem; font-family: 'Poppins', sans-serif; font-weight: 500;
+  font-size: 1.08rem; letter-spacing: 0.04em;
   color: var(--dorado); text-decoration: none; border-bottom: 1px solid var(--dorado-claro); padding-bottom: 2px;
 }
 
@@ -269,9 +273,9 @@ img { max-width: 100%; display: block; }
 }
 .icono { width: 34px; height: 34px; color: var(--dorado); display: block; }
 .linea-tiempo__punto { width: 10px; height: 10px; border-radius: 50%; background: var(--dorado-claro); margin: 0 auto; }
-/* Horas en negrita serif grande + descripción en otra serif más grande */
-.linea-tiempo__texto strong { display: block; font-family: 'Playfair Display', serif; font-weight: 700; font-style: normal; font-size: clamp(2.1rem, 8vw, 2.7rem); color: #2E2A24; letter-spacing: 0.03em; line-height: 1.1; }
-.linea-tiempo__texto span { display: block; font-family: 'Cormorant Garamond', serif; font-weight: 600; font-style: italic; font-size: clamp(1.7rem, 6.8vw, 2.15rem); color: #4a4438; margin-top: 0.25em; line-height: 1.3; }
+/* Horas grandes en serif + descripción pequeña en sans */
+.linea-tiempo__texto strong { display: block; font-family: 'Cormorant Garamond', serif; font-weight: 700; font-style: normal; font-size: clamp(2.4rem, 9vw, 3.1rem); color: #2E2A24; letter-spacing: 0.03em; line-height: 1.1; }
+.linea-tiempo__texto span { display: block; font-family: 'Jost', sans-serif; font-weight: 400; font-style: normal; font-size: clamp(1.25rem, 5vw, 1.6rem); color: #4a4438; margin-top: 0.25em; line-height: 1.35; }
 
 /* ============ 4. NUESTRO AMOR ============ */
 .s--nuestro-amor { padding: 0; background: var(--marfil); }
@@ -384,6 +388,8 @@ img { max-width: 100%; display: block; }
 .paleta__leyenda { font-size: 0.82rem; color: var(--gris-claro); letter-spacing: 0.01em; line-height: 1.6; margin: 0 auto 0.8em; max-width: 24ch; text-align: center; }
 
 .icono-sobre { width: 88px; height: 70px; color: var(--dorado); margin: 0.4rem auto 0; display: block; }
+.icono-sobre--grande { width: min(60%, 150px); height: auto; }
+.dresscode__pareja { width: min(56%, 150px); height: auto; color: var(--dorado); margin: 0 auto 0.6rem; display: block; opacity: 0.9; }
 
 /* Confirmar asistencia */
 .cupos { font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1.25rem; letter-spacing: 0.06em; color: #2E2A24; text-transform: uppercase; margin: 0.4rem 0 0; }
@@ -408,12 +414,26 @@ img { max-width: 100%; display: block; }
   line-height: 1.6;
 }
 .tarjeta-info--confirma .lugar__link { border-bottom: none; color: var(--dorado); display: inline-block; margin-top: 0.3em; font-size: clamp(2rem, 8.5vw, 2.8rem); font-weight: 700; letter-spacing: 0.05em; white-space: nowrap; }
+.tarjeta-info--confirma .lugar__link--numero { font-family: 'Poppins', sans-serif; font-weight: 600; letter-spacing: 0.08em; }
 
 /* ============ 7. COMPARTE FOTOS (imagen completa, sin recortar) ============ */
 .s--comparte { padding: 0; line-height: 0; }
 .s--comparte__bg { width: 100%; height: auto; display: block; }
 .s--comparte.sin-foto { min-height: 40vh; background: linear-gradient(160deg, #6b5643, #4a3826); }
 .s--comparte.sin-foto .s--comparte__bg { display: none; }
+
+/* ============ 7. SPOTIFY: comparte tus canciones ============ */
+.s--spotify { position: relative; padding: 0; min-height: 100svh; display: flex; align-items: center; justify-content: center; text-align: center; background: #241a12; overflow: hidden; }
+.s--spotify__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+.s--spotify.sin-foto .s--spotify__bg { display: none; }
+.s--spotify.sin-foto { background: linear-gradient(160deg, #4a3826, #241a12); }
+.s--spotify__velo { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,14,8,0.55), rgba(20,14,8,0.25) 40%, rgba(20,14,8,0.65)); }
+.s--spotify__contenido { position: relative; z-index: 1; padding: 4rem 1.6rem; max-width: 480px; color: #FFFDF8; }
+.s--spotify__nota { width: 64px; height: 64px; color: #FFFDF8; margin: 0 auto 1.2rem; display: block; opacity: 0.95; }
+.s--spotify__titulo { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: clamp(1.9rem, 7.5vw, 2.7rem); line-height: 1.25; margin: 0 0 0.7em; text-shadow: 0 2px 16px rgba(0,0,0,0.5); }
+.s--spotify__texto { font-family: 'Jost', sans-serif; font-size: 1.08rem; line-height: 1.6; margin: 0 auto 1.8em; max-width: 32ch; text-shadow: 0 1px 10px rgba(0,0,0,0.5); }
+.s--spotify__btn { display: inline-flex; align-items: center; gap: 0.6rem; background: #1DB954; color: #fff; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1rem; letter-spacing: 0.02em; text-decoration: none; padding: 0.85em 1.6em; border-radius: 999px; box-shadow: 0 12px 28px -10px rgba(0,0,0,0.6); }
+.s--spotify__btn svg { width: 22px; height: 22px; }
 
 /* ============ 8. RECOMENDACIONES (serif elegante + sans legible) ============ */
 .s--recomendaciones { background: var(--marfil); text-align: center; }
