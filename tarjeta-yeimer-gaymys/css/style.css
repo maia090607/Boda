@@ -590,16 +590,11 @@ img { max-width: 100%; display: block; }
     flex-direction: column;
     align-items: center;
   }
-  /* foto difuminada detrás de la columna */
+  /* foto difuminada a pantalla completa detrás de la columna */
   body::before {
     content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
     background: url("../fotos/foto1.jpeg") center 30% / cover no-repeat;
-    filter: blur(28px); transform: scale(1.2); opacity: 0.35;
-  }
-  /* velo crema encima de la foto para que quede suave */
-  body::after {
-    content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
-    background: rgba(251,247,239,0.72);
+    filter: blur(28px); transform: scale(1.2);
   }
   .s {
     width: min(430px, 100%);
