@@ -56,7 +56,7 @@ img { max-width: 100%; display: block; }
 .adorno span { display: block; width: 56px; height: 1px; background: var(--dorado-claro); opacity: 0.85; }
 .adorno b { display: block; width: 8px; height: 8px; background: var(--marfil); border: 1px solid var(--dorado-claro); transform: rotate(45deg); }
 /* subtítulo de historia con otra tipografía */
-.historia-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 600; font-size: clamp(1.3rem, 5vw, 1.6rem); color: #4a4438; line-height: 1.5; }
+.historia-sub { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 600; font-size: clamp(1.5rem, 5.8vw, 1.9rem); color: #4a4438; line-height: 1.5; }
 
 .s { position: relative; padding: 5rem 1.6rem; overflow: hidden; }
 
@@ -222,8 +222,8 @@ img { max-width: 100%; display: block; }
 .s--lugares { background: var(--marfil); padding-bottom: 1rem; }
 .lugar { max-width: 420px; margin: 0 auto 2.8rem; text-align: center; }
 .lugar__icono { width: 44px; height: 44px; color: var(--dorado); margin: 0 auto 0.8rem; display: block; }
-.lugar__icono-img { width: 56px; height: 56px; object-fit: contain; mix-blend-mode: multiply; margin: 0 auto 0.8rem; display: block; }
-.lugar__icono-img--ancha { width: min(64%, 220px); height: auto; }
+.lugar__icono-img { width: 76px; height: 76px; object-fit: contain; mix-blend-mode: multiply; margin: 0 auto 0.8rem; display: block; }
+.lugar__icono-img--ancha { width: min(56%, 190px); height: auto; }
 .lugar h3 {
   font-family: 'Poppins', sans-serif; font-weight: 600; text-transform: uppercase;
   letter-spacing: 0.12em; font-size: 0.9rem; color: var(--gris-claro); margin: 0 0 0.5em;
@@ -278,7 +278,7 @@ img { max-width: 100%; display: block; }
 /* Horas grandes en serif + descripción pequeña en sans */
 .linea-tiempo__texto strong { display: block; font-family: 'Playfair Display', serif; font-weight: 700; font-style: normal; font-size: clamp(1.6rem, 6.5vw, 2.2rem); color: #2E2A24; letter-spacing: 0.02em; line-height: 1.1; }
 .icono-img { width: 72%; height: 72%; object-fit: contain; mix-blend-mode: multiply; display: block; }
-.linea-tiempo__texto span { display: block; font-family: 'Jost', sans-serif; font-weight: 400; font-style: normal; font-size: clamp(1.25rem, 5vw, 1.6rem); color: #4a4438; margin-top: 0.25em; line-height: 1.35; }
+.linea-tiempo__texto span { display: block; font-family: 'Cormorant Garamond', serif; font-weight: 600; font-style: italic; font-size: clamp(1.35rem, 5.4vw, 1.7rem); color: #4a4438; margin-top: 0.2em; line-height: 1.3; }
 
 /* ============ 4. NUESTRO AMOR ============ */
 .s--nuestro-amor { padding: 0; background: var(--marfil); }
@@ -387,7 +387,8 @@ img { max-width: 100%; display: block; }
 .dresscode__bloque h4 { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 1.4rem; }
 .dresscode__bloque p { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.32rem; }
 .paleta__aviso { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.2rem; }
-.dresscode__nota, .dresscode__nota--fuerte { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; }
+.paleta__aviso strong { font-weight: 700; }
+.dresscode__nota, .dresscode__nota--fuerte { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 700; }
 .paleta { display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin: 0 auto 0.6rem; max-width: 260px; }
 .paleta--grande { gap: 0.6rem; margin-bottom: 1rem; }
 .paleta__c { width: 24px; height: 24px; border-radius: 50%; display: inline-block; box-shadow: 0 0 0 1px rgba(58,46,34,0.15); }
@@ -439,7 +440,7 @@ img { max-width: 100%; display: block; }
 .s--spotify__velo { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,14,8,0.55), rgba(20,14,8,0.25) 40%, rgba(20,14,8,0.65)); }
 .s--spotify__contenido { position: relative; z-index: 1; padding: 4rem 1.6rem; max-width: 480px; color: #FFFDF8; }
 .s--spotify__nota { width: 64px; height: 64px; color: #FFFDF8; margin: 0 auto 1.2rem; display: block; opacity: 0.95; }
-.s--spotify__nota-img { width: min(52%, 170px); height: auto; margin: 0 auto 1.2rem; display: block; background: #FFFDF8; padding: 0.5rem 0.8rem; border-radius: 16px; box-shadow: 0 12px 28px -12px rgba(0,0,0,0.55); }
+.s--spotify__nota-img { width: min(56%, 190px); height: auto; margin: 0 auto 1.2rem; display: block; mix-blend-mode: multiply; filter: drop-shadow(0 2px 6px rgba(0,0,0,0.55)); }
 .s--spotify__titulo { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: clamp(1.9rem, 7.5vw, 2.7rem); line-height: 1.25; margin: 0 0 0.7em; text-shadow: 0 2px 16px rgba(0,0,0,0.5); }
 .s--spotify__texto { font-family: 'Jost', sans-serif; font-size: 1.08rem; line-height: 1.6; margin: 0 auto 1.8em; max-width: 32ch; text-shadow: 0 1px 10px rgba(0,0,0,0.5); }
 .s--spotify__btn { display: inline-flex; align-items: center; gap: 0.6rem; background: #1DB954; color: #fff; font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 1rem; letter-spacing: 0.02em; text-decoration: none; padding: 0.85em 1.6em; border-radius: 999px; box-shadow: 0 12px 28px -10px rgba(0,0,0,0.6); }
@@ -478,6 +479,7 @@ img { max-width: 100%; display: block; }
   padding: 0 1.5rem; margin: 0;
   text-shadow: 0 2px 14px rgba(0,0,0,0.45);
 }
+.s--cierre__fecha { display: block; margin-top: 0.5em; font-size: clamp(1rem, 4vw, 1.4rem); letter-spacing: 0.22em; text-indent: 0.22em; font-weight: 500; }
 /* texto arriba, mucho más grande */
 .s--cierre__texto--arriba {
   top: 2.4rem; bottom: auto;

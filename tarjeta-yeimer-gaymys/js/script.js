@@ -156,6 +156,16 @@ if ("IntersectionObserver" in window) {
   audio.volume = 1;
   audio.preload = "auto";
   try { audio.load(); } catch (err0) {}
+  // Si el toque llegó antes de que hubiera datos, reintentar en cuanto cargue
+  var quiereSonar = false;
+  audio.addEventListener("canplay", function () {
+    if (quiereSonar && audio.paused) {
+      try {
+        var r = audio.play();
+        if (r && r.then) { r.then(sonar).catch(function () {}); }
+      } catch (err1) {}
+    }
+  });
 
   // Analizador de energía (graves) para bajar al ritmo de la música.
   // Se crea con gesto del usuario (requisito del navegador).
@@ -213,6 +223,7 @@ if ("IntersectionObserver" in window) {
   function encender(e) {
     // el botón tiene su propio control: no auto-encender desde él
     if (e && e.target && (e.target === btn || btn.contains(e.target))) return;
+    quiereSonar = true;
     if (e) {
       initAnalizador();
       if (ctxAudio && ctxAudio.state === "suspended") {
@@ -232,6 +243,7 @@ if ("IntersectionObserver" in window) {
   btn.addEventListener("click", function (e) {
     e.stopPropagation();
     if (audio.paused) {
+      quiereSonar = true;
       initAnalizador();
       if (ctxAudio && ctxAudio.state === "suspended") {
         try { ctxAudio.resume().catch(function () {}); } catch (err2) {}
@@ -242,6 +254,7 @@ if ("IntersectionObserver" in window) {
       else { sonar(); }
       detach();
     } else {
+      quiereSonar = false;
       audio.pause();
       callar();
     }

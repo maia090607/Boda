@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Poppins:wght@400;500;600&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css?v=2">
+<link rel="preload" href="musica/cancion.mp3" as="audio" type="audio/mpeg">
 </head>
 <body>
 
@@ -146,7 +147,7 @@
       <div class="dresscode__bloque">
         <h4>Mujeres</h4>
         <p>Vestido largo de un solo tono</p>
-        <p class="paleta__aviso">Colores reservados<br>se reserva toda la gama degradada del color blanco</p>
+        <p class="paleta__aviso"><strong>Colores reservados</strong><br>se reserva toda la gama degradada del color blanco</p>
         <p class="dresscode__nota dresscode__nota--fuerte">No se permiten estampados</p>
       </div>
       <div class="dresscode__div dresscode__div--horizontal"></div>
@@ -238,11 +239,11 @@
   <div class="s--cierre__marco reveal">
     <img class="s--cierre__bg" src="fotos/foto11.jpeg" alt="" onerror="this.closest('.s--cierre').classList.add('sin-foto')">
     <div class="s--cierre__velo"></div>
-    <p class="s--cierre__texto"><strong>YEIMER &amp; GAYMYS</strong></p>
+    <p class="s--cierre__texto"><strong>YEIMER &amp; GAYMYS</strong><span class="s--cierre__fecha">20 Noviembre 2026</span></p>
   </div>
 </section>
 
-<audio id="musica" src="musica/cancion.mp3" loop preload="auto"></audio>
+<audio id="musica" loop preload="auto"><source src="musica/cancion.mp3" type="audio/mpeg"></audio>
 <button id="btn-musica" class="btn-musica" aria-label="Reproducir música">♪</button>
 
 <script src="js/script.js?v=3"></script>
