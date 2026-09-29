@@ -432,7 +432,8 @@ img { max-width: 100%; display: block; }
   color: var(--dorado);
   margin-left: 0.25rem;
   line-height: 1;
-  transform: none;
+  /* centra ópticamente el número con el texto CUPOS: */
+  transform: translateY(0.06em);
 }
 
 .tarjeta-info--confirma .tarjeta-info__texto--confirma {
