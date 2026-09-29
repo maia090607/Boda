@@ -428,7 +428,7 @@ img { max-width: 100%; display: block; }
 }
 .tarjeta-info--confirma .lugar__link { border-bottom: none; color: var(--dorado); display: inline-block; margin-top: 0.3em; font-size: clamp(2rem, 8.5vw, 2.8rem); font-weight: 700; letter-spacing: 0.05em; white-space: nowrap; }
 .tarjeta-info--confirma .lugar__link--numero { font-family: 'Poppins', sans-serif; font-weight: 600; letter-spacing: 0.02em; font-size: clamp(1.7rem, 7vw, 2.3rem); }
-.confirma__icono { width: 64px; height: 64px; object-fit: contain; margin: 0 auto 0.4rem; display: block; }
+.confirma__icono { width: 64px; height: 64px; object-fit: contain; object-position: center; margin: -0.6rem auto 0.6rem; display: block; }
 
 /* ============ 7. COMPARTE FOTOS (imagen completa, sin recortar) ============ */
 .s--comparte { padding: 0; line-height: 0; }
