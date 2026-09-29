@@ -415,22 +415,26 @@ img { max-width: 100%; display: block; }
   font-size: clamp(1.7rem, 7vw, 2.1rem);
 }
 .tarjeta-info--confirma .cupos {
+  display: inline-flex;
+  align-items: center; /* Centra verticalmente el texto y el número entre sí */
+  justify-content: center;
   font-family: 'Cormorant Garamond', serif;
   font-weight: 700;
   text-transform: uppercase;
 }
+
 .tarjeta-info--confirma .cupos__caja {
   border-bottom: none;
   min-width: 0;
-  /* Mismo tamaño responsivo que el texto de confirmación/teléfono */
   font-size: clamp(1.5rem, 6vw, 1.9rem); 
-  font-weight: 600; /* Mismo peso que el teléfono si este usa 600 */
-  font-family: 'Cormorant Garamond', serif; /* Asegura la misma tipografía elegante */
+  font-weight: 600; 
+  font-family: 'Cormorant Garamond', serif; 
   color: var(--dorado);
   margin-left: 0.25rem;
   line-height: 1;
-  /* Ajuste vertical fino para dejarlo perfectamente centrado con los dos puntos */
-  transform: translateY(0.05rem); 
+  display: inline-flex;
+  align-items: center; /* Asegura que el contenido interno del número también esté alineado */
+  transform: translateY(0); /* Eliminamos desviaciones para que el flexbox haga el trabajo exacto */
 }
 
 .tarjeta-info--confirma .tarjeta-info__texto--confirma {
