@@ -609,3 +609,16 @@ img { max-width: 100%; display: block; }
     right: calc(50% - 215px + 1rem);
   }
 }
+
+/* ============ Cinta "Esta tarjeta es solo para ti" (control de reenvíos) ============ */
+.cinta-personal {
+  position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+  z-index: 60; width: min(430px, 100%);
+  background: linear-gradient(180deg, #B08D4F, #967639);
+  color: #FFFDF8;
+  font-family: 'Cormorant Garamond', serif; font-weight: 700;
+  font-size: 1.15rem; letter-spacing: 0.02em; text-align: center;
+  padding: 0.6rem 1rem;
+  box-shadow: 0 8px 20px -8px rgba(58,46,34,0.55);
+}
+.cinta-personal[hidden] { display: none; }

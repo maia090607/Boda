@@ -49,6 +49,29 @@ const FECHA_BODA = new Date("2026-11-20T19:30:00-05:00");
   for (var j = 0; j < cajas.length; j++) cajas[j].textContent = n;
 })();
 
+// Control de reenvíos: ?t=TOKEN consulta /api/acceso (nunca bloquea la vista).
+// - Pone los cupos que diga el servidor y muestra la cinta si ya se llegó al tope.
+// - Sin ?t= válido o si el servidor falla, la tarjeta funciona como siempre.
+(function () {
+  var t = null;
+  try { t = new URLSearchParams(window.location.search).get("t"); } catch (e) { t = null; }
+  if (!t || !/^[A-Za-z0-9_-]{8,64}$/.test(t)) return;
+  fetch("/api/acceso?t=" + encodeURIComponent(t), { credentials: "same-origin" })
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (!d || !d.ok) return;
+      if (d.cupos === "1" || d.cupos === "2" || d.cupos === "4") {
+        var cajas = document.querySelectorAll(".cupos__caja");
+        for (var k = 0; k < cajas.length; k++) cajas[k].textContent = d.cupos;
+      }
+      if (d.aviso) {
+        var cinta = document.getElementById("cinta-personal");
+        if (cinta) cinta.hidden = false;
+      }
+    })
+    .catch(function () {});
+})();
+
 function actualizarContador() {
   const ahora = new Date();
   const diferencia = FECHA_BODA - ahora;
