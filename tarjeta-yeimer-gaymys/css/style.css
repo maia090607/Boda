@@ -580,3 +580,25 @@ img { max-width: 100%; display: block; }
 @media (min-width: 720px) {
   .dresscode { grid-template-columns: 1fr 1fr; max-width: 620px; }
 }
+
+/* ============ PC: tarjeta en vertical como en el teléfono ============ */
+/* Columna de 430px centrada sobre fondo crema liso. Solo CSS: no toca HTML ni JS. */
+@media (min-width: 760px) {
+  body {
+    background: #EDE4CF; /* crema un punto más oscuro que la tarjeta, para enmarcarla */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .s {
+    width: min(430px, 100%);
+    margin-left: auto;
+    margin-right: auto;
+    /* sombra solo lateral para que las hojas se vean como una sola columna */
+    box-shadow: -24px 0 40px -28px rgba(58,46,34,0.35), 24px 0 40px -28px rgba(58,46,34,0.35);
+  }
+  /* el botón de música se ancla al borde de la columna, no a la esquina del monitor */
+  .btn-musica {
+    right: calc(50% - 215px + 1rem);
+  }
+}
