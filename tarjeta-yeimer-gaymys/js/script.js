@@ -1,16 +1,36 @@
 // Fecha y hora de la ceremonia: 20 de noviembre de 2026, 7:30 p.m. (Valledupar, Colombia UTC-5)
 const FECHA_BODA = new Date("2026-11-20T19:30:00-05:00");
 
-// Cupos por link: ?cupos=1, ?cupos=2 o ?cupos=4 rellena el recuadro.
-// Sin parámetro, queda vacío como antes.
+// Cupos por link en CUALQUIER dominio: ?cupos=1/2/4, /1 /2 /4 o #1 #2 #4.
+// Sin dato válido, queda vacío como antes.
 (function () {
-  var caja = document.querySelector(".cupos__caja");
-  if (!caja) return;
-  var n = null;
-  try {
-    n = new URLSearchParams(window.location.search).get("cupos");
-  } catch (e) { n = null; }
-  if (n === "1" || n === "2" || n === "4") caja.textContent = n;
+  function obtenerCupos() {
+    var v = null;
+    // 1) Query: ?cupos= ?cupo= ?c= ?invitados= ?pases=
+    try {
+      var qs = new URLSearchParams(window.location.search);
+      var claves = ["cupos", "cupo", "c", "invitados", "pases"];
+      for (var i = 0; i < claves.length; i++) {
+        v = qs.get(claves[i]);
+        if (v === "1" || v === "2" || v === "4") return v;
+      }
+    } catch (e) {}
+    // 2) Ruta: /1 /2 /4 (ej. dominio.vercel.app/2)
+    try {
+      var m = window.location.pathname.match(/(?:^|\/)([124])(?:\/|$)/);
+      if (m) return m[1];
+    } catch (e2) {}
+    // 3) Hash: #1 #2 #4 (ej. dominio.vercel.app#2)
+    try {
+      var h = window.location.hash.match(/([124])/);
+      if (h) return h[1];
+    } catch (e3) {}
+    return null;
+  }
+  var n = obtenerCupos();
+  if (!n) return;
+  var cajas = document.querySelectorAll(".cupos__caja");
+  for (var j = 0; j < cajas.length; j++) cajas[j].textContent = n;
 })();
 
 function actualizarContador() {
