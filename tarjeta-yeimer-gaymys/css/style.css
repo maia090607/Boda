@@ -593,7 +593,7 @@ img { max-width: 100%; display: block; }
   /* foto difuminada a pantalla completa detrás de la columna */
   body::before {
     content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
-    background: url("../fotos/foto1.jpeg") center 30% / cover no-repeat;
+    background: url("../fotos/foto5.jpeg") center 30% / cover no-repeat;
     filter: blur(28px); transform: scale(1.2);
   }
   .s {
